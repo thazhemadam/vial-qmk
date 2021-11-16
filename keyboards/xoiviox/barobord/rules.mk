@@ -40,7 +40,7 @@ EXTRAFLAGS     += -flto     # macros disabled, as a lot of barobord features req
                             # for instance, if you build "no_features", it's very unlikely you'll need to disable macros
 MOUSEKEY_ENABLE = no
 
-PIMORONI_TRACKBALL_ENABLE = yes
+PIMORONI_TRACKBALL_ENABLE = no
 
 ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     POINTING_DEVICE_ENABLE := yes
