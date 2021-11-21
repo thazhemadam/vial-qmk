@@ -156,7 +156,7 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ________________SYMBOLS_R2_________________			KC_GT,                 KC_RPRN,               KC_RCBR,               KC_RBRC,               KC_PLUS
 #define ________________SYMBOLS_R3_________________			_________________META_NAV_R1_______________
 
-#define ________________SHIFTNAV_1_________________			_______,               LSFT(KC_PGDN),         LSFT(KC_UP),           LSFT(KC_PGUP),         _______
+#define ________________SHIFTNAV_1_________________			_______,               LSFT(KC_PGUP),         LSFT(KC_UP),           LSFT(KC_PGDN),         _______
 #define ________________SHIFTNAV_2_________________			LSFT(KC_HOME),         LSFT(KC_LEFT),         LSFT(KC_DOWN),         LSFT(KC_RGHT),         LSFT(KC_END)
 #define ________________SHIFTNAV_3_________________			LCTL(KC_Z),            LCTL(KC_X),            LCTL(KC_C),            LCTL(KC_V),            KC_MUTE
 
