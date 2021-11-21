@@ -230,6 +230,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LSHIFT);
             }
             break;
+        case N_NEXTSEN:  // Next sentence macro.
+            if (record->event.pressed) {
+                SEND_STRING(". ");
+                add_oneshot_mods(MOD_BIT(KC_LSHIFT));  // Set one-shot mod for shift.
+            }
+            break;
         case S_ALT_TAB:
             if (record->event.pressed) {
                 press_super_alt_tab(false);
