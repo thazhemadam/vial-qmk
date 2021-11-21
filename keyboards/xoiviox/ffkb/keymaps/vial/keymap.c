@@ -5,6 +5,19 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 #endif
 
+#ifdef CASEMODES_ENABLE
+#include "users/sadekbaroudi/casemodes.h"
+#endif
+
+enum custom_keycodes {
+    NEXTSEN = USER00,
+    CAPSWORD,
+    HYPHENCASE,
+    ANYCASE,
+    U_S_CASE,
+    NEW_SAFE_RANGE
+};
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _QWERTY,
@@ -52,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   ,------.  |------+------+------+------+------+------|
  * | Home | Left | Down |  Up  | Right| End  |   |ALTTAB|  |      |   -  |   =  |   [  |   ]  |      |
  * |------+------+------+------+------+------|   `------'  |------+------+------+------+------+------|
- * |      |      | PgDn | PgUp |      |      |             |      |      |      |      |      |      |
+ * |      |      | PgDn | PgUp |      |CpsWrd|             |      |      |      |      |      |      |
  * `-----------------------------------------'             `-----------------------------------------'
  *          ,------.        ,--------------------.    ,--------------------.        ,------.
  *          | MUTE |        |   \  | Enter| LOWER|    | RAISE| Space| Del  |        | DELW |
@@ -60,10 +73,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT_ffkb(
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-  KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TAB,       _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
-  _______, _______, KC_PGDN, KC_PGUP, _______, _______,      _______, _______, _______, _______, _______, _______,
-                    _______, _______, _______, ADJUST,       _______, _______, _______, _______,
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,     KC_7,       KC_8,    KC_9,    KC_0,    _______,
+  KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TAB,       _______,  KC_MINS,    KC_EQL,  KC_LBRC, KC_RBRC, _______,
+  _______, _______, KC_PGDN, KC_PGUP, _______, CAPSWORD,     U_S_CASE, HYPHENCASE, ANYCASE, _______, _______, _______,
+                    _______, _______, _______, ADJUST,       _______,  _______,    _______, _______,
                                                       _______
 ),
 
@@ -229,3 +242,50 @@ void oled_task_user(void) {
 }
 
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef CASEMODES_ENABLE
+    // Process case modes
+    if (!process_case_modes(keycode, record)) {
+        return false;
+    }
+    #endif
+
+    switch (keycode) {
+        case CAPSWORD:
+            #ifdef CASEMODES_ENABLE
+            if (record->event.pressed) {
+                enable_caps_word();
+            }
+            #endif
+            break;
+        case HYPHENCASE:
+            #ifdef CASEMODES_ENABLE
+            if (record->event.pressed) {
+                enable_xcase_with(KC_MINS);
+            }
+            #endif
+            break;
+        case ANYCASE:
+            #ifdef CASEMODES_ENABLE
+            if (record->event.pressed) {
+                enable_xcase();
+            }
+            #endif
+            break;
+        case U_S_CASE:
+            #ifdef CASEMODES_ENABLE
+            if (record->event.pressed) {
+                enable_xcase_with(KC_UNDS);
+            }
+            #endif
+            break;
+        case NEXTSEN:
+            if (record->event.pressed) {
+                SEND_STRING(". ");
+                add_oneshot_mods(MOD_BIT(KC_LSHIFT));  // Set one-shot mod for shift.
+            }
+            break;
+    }
+    return true;
+};

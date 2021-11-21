@@ -39,6 +39,7 @@ OLED_DRIVER_ENABLE = yes    # this can be yes or no depending on if you have an 
 EXTRAFLAGS     += -flto     # macros disabled, as a lot of barobord features require more space, can move this line into all the individual rules.mk, only where needed
                             # for instance, if you build "no_features", it's very unlikely you'll need to disable macros
 MOUSEKEY_ENABLE = no
+CASEMODES_ENABLE = yes
 
 PIMORONI_TRACKBALL_ENABLE = no
 
@@ -47,4 +48,8 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     SRC += drivers/sensors/pimoroni_trackball.c
     QUANTUM_LIB_SRC += i2c_master.c
     OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
+endif
+
+ifeq ($(strip $(CASEMODES_ENABLE)), yes)
+    SRC += users/sadekbaroudi/casemodes.c
 endif

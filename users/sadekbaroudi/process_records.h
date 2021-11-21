@@ -17,12 +17,12 @@ enum userspace_custom_keycodes {
     L_GITCOMMIT,
     N_DEL_LINE,
     N_SEL_LINE,
+    N_NEXTSEN,
     S_ALT_TAB,
     C_CAPSWORD,
     C_HYPHENCASE,
     C_UNDERSCORECASE,
     C_ANYCASE,
-    N_NEXTSEN,
     NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
