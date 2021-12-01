@@ -30,27 +30,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // zoom in and out
                 if (clockwise) {
                     #ifdef ENCODERS_A_REVERSE
-                    register_code(KC_LCTL);
-                    tap_code(KC_MINS);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_MINS));
                     #else
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_EQL);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_EQL)));
                     #endif
                 } else {
                     #ifdef ENCODERS_A_REVERSE
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_EQL);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_EQL)));
                     #else
-                    register_code(KC_LCTL);
-                    tap_code(KC_MINS);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_MINS));
                     #endif
                 }
                 break;
@@ -77,31 +65,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // word select left and right
                 if (clockwise) {
                     #ifdef ENCODERS_B_REVERSE
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_LEFT);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_LEFT)));
                     #else
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_RIGHT);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_RIGHT)));
                     #endif
                 } else {
                     #ifdef ENCODERS_B_REVERSE
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_RIGHT);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_RIGHT)));
                     #else
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_LEFT);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_LEFT)));
                     #endif
                 }
                 break;
@@ -125,23 +97,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // cursor move one word at a time, left and right
                 if (clockwise) {
                     #ifdef ENCODERS_B_REVERSE
-                    register_code(KC_LCTL);
-                    tap_code(KC_LEFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_LEFT));
                     #else
-                    register_code(KC_LCTL);
-                    tap_code(KC_RIGHT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_RIGHT));
                     #endif
                 } else {
                     #ifdef ENCODERS_B_REVERSE
-                    register_code(KC_LCTL);
-                    tap_code(KC_RIGHT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_RIGHT));
                     #else
-                    register_code(KC_LCTL);
-                    tap_code(KC_LEFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_LEFT));
                     #endif
                 }
                 break;
@@ -153,27 +117,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // scroll browser tab left and right
                 if (clockwise){
                     #ifdef ENCODERS_B_REVERSE
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_TAB);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_TAB)));
                     #else
-                    register_code(KC_LCTL);
-                    tap_code(KC_TAB);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_TAB));
                     #endif
                 } else{
                     #ifdef ENCODERS_B_REVERSE
-                    register_code(KC_LCTL);
-                    tap_code(KC_TAB);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_TAB));
                     #else
-                    register_code(KC_LCTL);
-                    register_code(KC_LSHIFT);
-                    tap_code(KC_TAB);
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(S(KC_TAB)));
                     #endif
                 }
                 break;
