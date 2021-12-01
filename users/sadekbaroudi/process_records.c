@@ -1,5 +1,5 @@
 #include "sadekbaroudi.h"
-#include "casemodes.h"
+#include "users/sadekbaroudi/casemodes.h"
 #if defined(RGBLIGHT_ENABLE)
 #include "rgb_stuff.h"
 #endif

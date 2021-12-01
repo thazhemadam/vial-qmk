@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "casemodes.h"
+#include "users/sadekbaroudi/casemodes.h"
 
 /* The caps word concept started with me @iaap on splitkb.com discord.
  * However it has been implemented and extended by many splitkb.com users:

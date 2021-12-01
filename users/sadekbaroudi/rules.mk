@@ -58,7 +58,7 @@ endif
 
 ifeq ($(strip $(CASEMODES_ENABLE)), yes)
     OPT_DEFS += -DCASEMODES_ENABLE
-    SRC += casemodes.c
+    SRC += users/sadekbaroudi/casemodes.c
 endif
 
 ifeq ($(strip $(COMBO_ENABLE)), yes)
