@@ -1,6 +1,6 @@
 #include "sadekbaroudi.h"
 
-#define USER_SUPER_ALT_TAB_TIMEOUT 500
+#define USER_SUPER_ALT_TAB_TIMEOUT 800
 
 #ifdef PIMORONI_TRACKBALL_ENABLE
 #include "drivers/sensors/pimoroni_trackball.h"
