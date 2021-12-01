@@ -23,8 +23,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define XOIVIOX_EC11
 #endif
 
-#define ENCODERS_A_REVERSE true
-#define ENCODERS_B_REVERSE true
-
 #pragma once
 #include "config_common.h"
