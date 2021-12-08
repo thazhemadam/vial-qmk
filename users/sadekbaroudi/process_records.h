@@ -23,6 +23,7 @@ enum userspace_custom_keycodes {
     C_HYPHENCASE,
     C_UNDERSCORECASE,
     C_ANYCASE,
+    T_YOU,
     NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 

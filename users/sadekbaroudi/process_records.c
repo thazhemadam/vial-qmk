@@ -243,6 +243,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // when keycode is released
             }
             break;
+        case T_YOU:
+            if (record->event.pressed) {
+                if((get_mods() & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) || (get_mods() & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT)) {
+                    SEND_STRING("y");
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    SEND_STRING("ou");
+                } else if(is_caps_lock_on) {
+                    register_code(KC_LSHIFT);
+                    SEND_STRING("you");
+                    unregister_code(KC_LSHIFT);
+                } else {
+                    SEND_STRING("you");
+                }
+            }
         // COMMENT TO DISABLE MACROS
     }
     return true;
