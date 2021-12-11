@@ -122,7 +122,8 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________COLEMAK_R2________________			KC_H,    KC_N,    KC_E,    KC_I,    KC_O
 #define _________________COLEMAK_R3________________			KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
-#define ______________COLEMAK_MOD_DH_L1____________			T_YOU,   KC_W,    KC_F,    KC_P,    KC_B
+//#define ______________COLEMAK_MOD_DH_L1____________     T_YOU,   KC_W,    KC_F,    KC_P,    KC_B // UNCOMMENT TO ENABLE YOU MACRO
+#define ______________COLEMAK_MOD_DH_L1____________			KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #define ______________COLEMAK_MOD_DH_L2____________			KC_A,    KC_R,    KC_S,    KC_T,    KC_G
 #define ______________COLEMAK_MOD_DH_L3____________			KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
 
