@@ -145,8 +145,8 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ________________NAVIGATION_2_______________			_________________META_NAV_2________________
 #define ________________NAVIGATION_3_______________			LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), _______, LCTL(KC_V)
 
-#define _________________NUMPAD_1__________________			KC_ASTR, KC_7,    KC_8,    KC_9,    KC_PLUS
-#define _________________NUMPAD_2__________________			KC_SLSH, KC_4,    KC_5,    KC_6,    KC_MINS
+#define _________________NUMPAD_1__________________			KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS
+#define _________________NUMPAD_2__________________			KC_SLSH, KC_4,    KC_5,    KC_6,    KC_PLUS
 #define _________________NUMPAD_3__________________			KC_EQL,  KC_1,    KC_2,    KC_3,    KC_0
 
 #define ________________SYMBOLS_L1_________________			KC_EXLM,               KC_AT,                 KC_HASH,               KC_DLR,                KC_PERC
