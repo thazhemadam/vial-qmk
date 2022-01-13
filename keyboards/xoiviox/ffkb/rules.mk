@@ -38,7 +38,7 @@ ENCODER_ENABLE = yes
 OLED_DRIVER_ENABLE = yes    # this can be yes or no depending on if you have an OLED
 EXTRAFLAGS     += -flto     # macros disabled, as a lot of barobord features require more space, can move this line into all the individual rules.mk, only where needed
                             # for instance, if you build "no_features", it's very unlikely you'll need to disable macros
-MOUSEKEY_ENABLE = no
+MOUSEKEY_ENABLE = yes
 CASEMODES_ENABLE = yes
 
 PIMORONI_TRACKBALL_ENABLE = no
