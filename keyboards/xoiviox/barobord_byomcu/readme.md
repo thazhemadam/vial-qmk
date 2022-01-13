@@ -8,30 +8,30 @@ Barobord supports vial! Build the via keymap as shown in the commands
 
 To build the firmware for this keyboard (after setting up your build environment), select from one of the following, depending on what features you have on your board:
 
-    make xoiviox/barobord_byomcu/ec11:vial
-    make xoiviox/barobord_byomcu/evq:vial
-    make xoiviox/barobord_byomcu/no-features:vial
-    make xoiviox/barobord_byomcu/oled:vial
-    make xoiviox/barobord_byomcu/oled-ec11:vial
-    make xoiviox/barobord_byomcu/oled-evq:vial
-    make xoiviox/barobord_byomcu/pimoroni:vial
-    make xoiviox/barobord_byomcu/pimoroni-ec11:vial
-    make xoiviox/barobord_byomcu/pimoroni-evq:vial
-    make xoiviox/barobord_byomcu/readme.md:vial
-    make xoiviox/barobord_byomcu/rgblight:vial
-    make xoiviox/barobord_byomcu/rgblight-oled-ec11:vial
-    make xoiviox/barobord_byomcu/rgblight-oled-evq:vial
-    make xoiviox/barobord_byomcu/rgblight-pimoroni-ec11:vial
-    make xoiviox/barobord_byomcu/rgblight-pimoroni-evq:vial
-    make xoiviox/barobord_byomcu/rgbmatrix:vial
-    make xoiviox/barobord_byomcu/rgbmatrix-oled-ec11:vial
-    make xoiviox/barobord_byomcu/rgbmatrix-oled-evq:vial
-    make xoiviox/barobord_byomcu/rgbmatrix-pimoroni-ec11:vial
-    make xoiviox/barobord_byomcu/rgbmatrix-pimoroni-evq:vial
+    make fingerpunch/barobord_byomcu/ec11:vial
+    make fingerpunch/barobord_byomcu/evq:vial
+    make fingerpunch/barobord_byomcu/no-features:vial
+    make fingerpunch/barobord_byomcu/oled:vial
+    make fingerpunch/barobord_byomcu/oled-ec11:vial
+    make fingerpunch/barobord_byomcu/oled-evq:vial
+    make fingerpunch/barobord_byomcu/pimoroni:vial
+    make fingerpunch/barobord_byomcu/pimoroni-ec11:vial
+    make fingerpunch/barobord_byomcu/pimoroni-evq:vial
+    make fingerpunch/barobord_byomcu/readme.md:vial
+    make fingerpunch/barobord_byomcu/rgblight:vial
+    make fingerpunch/barobord_byomcu/rgblight-oled-ec11:vial
+    make fingerpunch/barobord_byomcu/rgblight-oled-evq:vial
+    make fingerpunch/barobord_byomcu/rgblight-pimoroni-ec11:vial
+    make fingerpunch/barobord_byomcu/rgblight-pimoroni-evq:vial
+    make fingerpunch/barobord_byomcu/rgbmatrix:vial
+    make fingerpunch/barobord_byomcu/rgbmatrix-oled-ec11:vial
+    make fingerpunch/barobord_byomcu/rgbmatrix-oled-evq:vial
+    make fingerpunch/barobord_byomcu/rgbmatrix-pimoroni-ec11:vial
+    make fingerpunch/barobord_byomcu/rgbmatrix-pimoroni-evq:vial
 
 Example of flashing this keyboard:
 
-    make xoiviox/barobord_byomcu/no-features:vial:flash
+    make fingerpunch/barobord_byomcu/no-features:vial:flash
 
 
 Once you have completed the build, flash it onto your keyboard. At this point, make sure you have [Vial](https://get.vial.today/) installed. You should be able to edit your keymap directly from your machine!
