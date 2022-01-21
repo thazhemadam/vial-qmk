@@ -24,7 +24,7 @@
 
 /*
  * The `LAYOUT_ffkb_base` macro is a template to allow the use of identical
- * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * modifiers for the default layouts (eg ALPHA_ALT, Colemak, Dvorak, etc), so
  * that there is no need to set them up for each layout, and modify all of
  * them if I want to change them.  This helps to keep consistency and ease
  * of use. K## is a placeholder to pass through the individual keycodes
@@ -38,8 +38,8 @@
   ) \
   LAYOUT_wrapper( \
         N_SEL_LINE,      K01,            K02,            K03,            LT(_FUNCTION, K04),     K05,                      K06,                   LT(_FUNCTION, K07),    LT(_WINNAV,K08),  K09,            K0A,          KC_BSLS, \
-        OSM(MOD_LSFT),   LCTL_T(K11),    LGUI_T(K12),    LALT_T(K13),    LSFT_T(K14),            K15,                      LT(_MOUSE, K16),       RSFT_T(K17),           RALT_T(K18),      RGUI_T(K19),    RCTL_T(K1A),  N_NEXTSEN, \
-        TG(_MOUSE),      K21,            K22,            K23,            K24,                    K25,                      K26,                   K27,                   K28,              K29,            K2A,          S_ALT_TAB, \
+        LCTL(KC_C),      LCTL_T(K11),    LGUI_T(K12),    LALT_T(K13),    LSFT_T(K14),            K15,                      LT(_MOUSE, K16),       RSFT_T(K17),           RALT_T(K18),      RGUI_T(K19),    RCTL_T(K1A),  LCTL(KC_V), \
+        TG(_NAVIGATION), K21,            K22,            K23,            K24,                    K25,                      K26,                   K27,                   K28,              K29,            K2A,          S_ALT_TAB, \
                                  KC_MUTE,        KC_DEL,         LT(_NAVIGATION,KC_ENT), LT(_FUNCTION,KC_TAB),     LT(_MEDIA,KC_BSPC),    LT(_SYMBOLS,KC_SPACE), KC_QUOT,          LCTL(KC_BSPC), \
                                                                                                       N_DEL_LINE \
     )
@@ -49,22 +49,16 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_QWERTY] = LAYOUT_ffkb_base_wrapper(
-        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    [_ALPHA_ALT] = LAYOUT_ffkb_base_wrapper(
+        _________________ALPHA_ALT_L1_________________, _________________ALPHA_ALT_R1_________________,
+        _________________ALPHA_ALT_L2_________________, _________________ALPHA_ALT_R2_________________,
+        _________________ALPHA_ALT_L3_________________, _________________ALPHA_ALT_R3_________________
     ),
 
-    [_COLEMAK] = LAYOUT_ffkb_base_wrapper(
-        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
-        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
-        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
-    ),
-
-    [_ISRT] = LAYOUT_ffkb_base_wrapper(
-        _________________ISRT_L1________________, _________________ISRT_R1________________,
-        _________________ISRT_L2________________, _________________ISRT_R2________________,
-        _________________ISRT_L3________________, _________________ISRT_R3________________
+    [_ALPHA] = LAYOUT_ffkb_base_wrapper(
+        __________________ALPHA_L1____________________, __________________ALPHA_R1____________________,
+        __________________ALPHA_L2____________________, __________________ALPHA_R2____________________,
+        __________________ALPHA_L3____________________, __________________ALPHA_R3____________________
     ),
 
     [_NAVIGATION] = LAYOUT_wrapper(
@@ -103,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, __________________MOUSE_1__________________, ___________________BLANK___________________, _______, 
         _______, __________________MOUSE_2__________________, ___________________BLANK___________________, _______, 
         _______, __________________MOUSE_3__________________, ___________________BLANK___________________, _______, 
-                          _______, KC_BTN3, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN2, _______, _______,
+                    _______, _______, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN3, KC_MS_BTN2, _______, _______,
                                                          _______
     ),
 
@@ -180,14 +174,11 @@ static void render_status(void) {
   oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
   oled_write_P(PSTR("\n"),false);
   switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Qwerty "), false);
+        case _ALPHA_ALT:
+            oled_write_P(PSTR("Alphalt"), false);
             break;
-        case _COLEMAK:
-            oled_write_P(PSTR("Colemak"), false);
-            break;
-        case _ISRT:
-            oled_write_P(PSTR("ISRT"), false);
+        case _ALPHA:
+            oled_write_P(PSTR("Alpha  "), false);
             break;
         case _NAVIGATION:
             oled_write_P(PSTR("Nav    "), false);
@@ -238,7 +229,7 @@ void oled_task_user(void) {
 #if !defined(RGBLIGHT_ENABLE) && defined(PIMORONI_TRACKBALL_ENABLE)
 layer_state_t layer_state_set_keymap(layer_state_t state) {
     switch (get_highest_layer(state)) {
-    case _QWERTY:
+    case _ALPHA_ALT:
         if (is_caps_lock_on) {
             trackball_set_rgbw(RGB_RED, 0x00);
         } else {
