@@ -6,6 +6,11 @@ An ergonomic 30% keyboard
 
 Rock On supports vial! If you want to use Vial, go to https://github.com/sadekbaroudi/vial-qmk/keyboards/fingerpunch/rockon/
 
+IMPORTANT: If you are using anything that is not rgbmatrix from the list below, you will need to edit keymaps/vial/vial.json and remove the line shown below:
+     "matrix": {"rows": 4, "cols": 12},
+ --> "lighting": "vialrgb",
+     "layouts": {
+
 To build the firmware for this keyboard (after setting up your build environment), select from one of the following, depending on what features you have on your board:
 
     make fingerpunch/rockon/no-features:default
