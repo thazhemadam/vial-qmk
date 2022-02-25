@@ -9,9 +9,11 @@ Faux fox keyboard (ffkb) supports vial!
 Once you have completed the build, flash it onto your keyboard. At this point, make sure you have [Vial](https://get.vial.today/) installed. You should be able to edit your keymap directly from your machine without having to re-flash it!
 
 IMPORTANT: If you are using anything that is not rgbmatrix from the list below, you will need to edit keymaps/vial/vial.json and remove the line shown below:
+```
      "matrix": {"rows": 4, "cols": 12},
  --> "lighting": "vialrgb",
      "layouts": {
+```
 
 Make example for this keyboard (after setting up your build environment):
 

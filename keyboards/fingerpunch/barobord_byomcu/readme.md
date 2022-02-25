@@ -7,9 +7,11 @@ An ergonomic 30% keyboard
 Barobord supports vial! Build the via keymap as shown in the commands
 
 IMPORTANT: If you are using anything that is not rgbmatrix from the list below, you will need to edit keymaps/vial/vial.json and remove the line shown below:
+```
      "matrix": {"rows": 4, "cols": 12},
  --> "lighting": "vialrgb",
      "layouts": {
+```
 
 To build the firmware for this keyboard (after setting up your build environment), select from one of the following, depending on what features you have on your board:
 
