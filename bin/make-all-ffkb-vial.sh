@@ -42,3 +42,4 @@ cp keyboards/fingerpunch/ffkb/keymaps/vial/vial.json.bak keyboards/fingerpunch/f
 rm keyboards/fingerpunch/ffkb/keymaps/vial/vial.json.bak
 
 cp fingerpunch_ffkb_*_vial.hex /mnt/g/My\ Drive/qmk-keyboards/ffkb/vial/
+rm -rf /mnt/g/My\ Drive/qmk-keyboards/ffkb/vial/fingerpunch_ffkb_byomcu_*_vial.hex
