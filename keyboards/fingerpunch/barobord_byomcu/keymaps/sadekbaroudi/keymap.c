@@ -26,55 +26,52 @@
 //char wpm_as_str[8];
 
 /*
- * The `LAYOUT_barobord_byomcu_base` macro is a template to allow the use of identical
- * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * The `LAYOUT_barobord_base` macro is a template to allow the use of identical
+ * modifiers for the default layouts (eg ALPHA_ALT, Colemak, Dvorak, etc), so
  * that there is no need to set them up for each layout, and modify all of
  * them if I want to change them.  This helps to keep consistency and ease
  * of use. K## is a placeholder to pass through the individual keycodes
  */
 
 // clang-format off
-#define LAYOUT_barobord_byomcu_base( \
+#define LAYOUT_barobord_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
+              K33, K34, K35, K36, K37, K38 \
   ) \
   LAYOUT_wrapper( \
-        K01,            K02,            K03,            LT(_FUNCTION, K04),     K05,                      K06,                   LT(_FUNCTION, K07),    LT(_WINNAV,K08),  K09,            K0A, \
+        K01,            K02,            K03,            LT(_FUNCTION, K04),     K05,                      K06,                   LT(_FUNCTION, K07),    K08,              K09,            K0A, \
         LCTL_T(K11),    LGUI_T(K12),    LALT_T(K13),    LSFT_T(K14),            K15,                      LT(_MOUSE, K16),       RSFT_T(K17),           RALT_T(K18),      RGUI_T(K19),    RCTL_T(K1A), \
         K21,            K22,            K23,            K24,                    K25,                      K26,                   K27,                   K28,              K29,            K2A, \
-        _______,        _______,        KC_DEL,        LT(_NAVIGATION,KC_ENT), LT(_FUNCTION,KC_TAB),      LT(_MEDIA,KC_BSPC),    LT(_SYMBOLS,KC_SPACE), KC_QUOT,          _______,        _______, \
+        _______,        _______,        K33,            LT(_NAVIGATION,K34),    LT(_FUNCTION,K35),        LT(_MEDIA,K36),        LT(_SYMBOLS,K37),      K38,              _______,        _______, \
                                                                                 KC_MUTE,                  LCTL(KC_BSPC) \
     )
 
 /* Re-pass though to allow templates to be used */
-#define LAYOUT_barobord_byomcu_base_wrapper(...)       LAYOUT_barobord_byomcu_base(__VA_ARGS__)
+#define LAYOUT_barobord_base_wrapper(...)       LAYOUT_barobord_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_QWERTY] = LAYOUT_barobord_byomcu_base_wrapper(
-        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    [_ALPHA_ALT] = LAYOUT_barobord_base_wrapper(
+        _________________ALPHA_ALT_L1_________________, _________________ALPHA_ALT_R1_________________,
+        _________________ALPHA_ALT_L2_________________, _________________ALPHA_ALT_R2_________________,
+        _________________ALPHA_ALT_L3_________________, _________________ALPHA_ALT_R3_________________,
+                                             __ALPHA_ALT_THUMBS_6__
     ),
 
-    [_COLEMAK] = LAYOUT_barobord_byomcu_base_wrapper(
-        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
-        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
-        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
-    ),
-
-    [_ISRT] = LAYOUT_barobord_byomcu_base_wrapper(
-        _________________ISRT_L1________________, _________________ISRT_R1________________,
-        _________________ISRT_L2________________, _________________ISRT_R2________________,
-        _________________ISRT_L3________________, _________________ISRT_R3________________
+    [_ALPHA] = LAYOUT_barobord_base_wrapper(
+        __________________ALPHA_L1____________________, __________________ALPHA_R1____________________,
+        __________________ALPHA_L2____________________, __________________ALPHA_R2____________________,
+        __________________ALPHA_L3____________________, __________________ALPHA_R3____________________,
+                                              __ALPHA_THUMBS_6__
     ),
 
     [_NAVIGATION] = LAYOUT_wrapper(
         ________________NAVIGATION_1_______________, _________________NUMPAD_1__________________,
         ________________NAVIGATION_2_______________, _________________NUMPAD_2__________________,
         ________________NAVIGATION_3_______________, _________________NUMPAD_3__________________,
-        _______, _______, _______, _______, KC_TAB,  KC_BSPC, KC_SPACE, KC_DOT, _______, _______,
+        G_GOD_ON, G_GOD_OFF, _______, _______, KC_TAB, KC_BSPC, KC_SPACE, KC_DOT, _______, _______,
                                             _______, _______
     ),
 
@@ -82,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ________________SYMBOLS_L1_________________, ________________SYMBOLS_R1_________________,
         ________________SYMBOLS_L2_________________, ________________SYMBOLS_R2_________________,
         ________________SYMBOLS_L3_________________, ________________SYMBOLS_R3_________________,
-        _______, _______, _______, KC_ENT, KC_DEL,   KC_BSPC, _______, _______, _______, _______,
+        _______, _______, _______, KC_ENT, KC_DEL,  KC_BSPC, _______, _______, G_PULLING, G_PUSH,
                                             _______, _______
     ),
 
@@ -108,20 +105,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________MOUSE_3__________________, ___________________BLANK___________________,
         _______, _______, _______, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN3, KC_MS_BTN2, _______, _______, _______,
                                             _______, _______
-    ),
-
-    [_WINNAV] = LAYOUT_wrapper(
-        __________________WIN_NAV_1________________, ___________________BLANK___________________,
-        __________________WIN_NAV_2________________, ___________________BLANK___________________,
-        ___________________BLANK___________________, ___________________BLANK___________________,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                            _______, _______
     )
 
 };
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -183,14 +172,11 @@ static void render_status(void) {
   oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
   oled_write_P(PSTR("\n"),false);
   switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Qwerty "), false);
+        case _ALPHA_ALT:
+            oled_write_P(PSTR("Alphalt"), false);
             break;
-        case _COLEMAK:
-            oled_write_P(PSTR("Colemak"), false);
-            break;
-        case _ISRT:
-            oled_write_P(PSTR("Workman"), false);
+        case _ALPHA:
+            oled_write_P(PSTR("Alpha  "), false);
             break;
         case _NAVIGATION:
             oled_write_P(PSTR("Nav    "), false);
@@ -207,10 +193,6 @@ static void render_status(void) {
         case _MOUSE:
             oled_write_P(PSTR("Mouse  "), false);
             break;
-        case _WINNAV:
-            oled_write_P(PSTR("Win nav"), false);
-            break;
-
         default:
             oled_write_P(PSTR("Unkn "), false);
             break;

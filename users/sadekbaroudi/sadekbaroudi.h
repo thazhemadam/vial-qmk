@@ -21,9 +21,13 @@
 #include "eeprom.h"
 #include "wrappers.h"
 #include "process_records.h"
-#if defined(RGBLIGHT_ENABLE)
+#if defined(USERSPACE_RGBLIGHT_ENABLE)
 #    include "rgb_stuff.h"
 #endif
+#if defined(HAPTIC_ENABLE)
+#    include "haptic_stuff.h"
+#endif
+
 // #if defined(RGB_MATRIX_ENABLE)
 // #    include "rgb_matrix_stuff.h"
 // #endif
@@ -37,7 +41,8 @@ enum userspace_layers {
     _FUNCTION,
     _MEDIA,
     _MOUSE,
-    _WINNAV
+    _GAME,
+    _KICAD
 };
 
 void          press_super_alt_tab(bool shift);
@@ -70,4 +75,4 @@ typedef union {
 // clang-format on
 
 extern userspace_config_t userspace_config;
-extern bool is_caps_lock_on;
+

@@ -2,7 +2,7 @@ SRC += sadekbaroudi.c \
        process_records.c
 
 COMMAND_ENABLE   = no  # Commands for debug and configuration
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 UNICODE_ENABLE   = no  # Unicode
 SWAP_HANDS_ENABLE= no  # Allow swapping hands of keyboard
 BACKLIGHT_ENABLE = no
@@ -10,7 +10,7 @@ NKRO_ENABLE      = no
 RAW_ENABLE       = no
 CASEMODES_ENABLE = yes
 COMBO_ENABLE     = yes
-#LTO_ENABLE       = yes
+LTO_ENABLE       = no
 
 # UNCOMMENT TO DISABLE MACROS
 #EXTRAFLAGS     += -flto
@@ -18,8 +18,6 @@ COMBO_ENABLE     = yes
 
 SPACE_CADET_ENABLE    = no
 GRAVE_ESC_ENABLE      = no
-
-
 
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
@@ -30,11 +28,9 @@ ifneq ($(strip $(NO_SECRETS)), yes)
     endif
 endif
 
-ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+ifeq ($(strip $(USERSPACE_RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c
-    ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
-        OPT_DEFS += -DRGBLIGHT_NOEEPROM
-    endif
+    OPT_DEFS += -DUSERSPACE_RGBLIGHT_ENABLE
 endif
 
 # RGB_MATRIX_ENABLE ?= no
@@ -57,8 +53,7 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(CASEMODES_ENABLE)), yes)
-    OPT_DEFS += -DCASEMODES_ENABLE
-    SRC += users/sadekbaroudi/casemodes.c
+    SRC += casemodes.c
 endif
 
 ifeq ($(strip $(COMBO_ENABLE)), yes)
@@ -72,3 +67,10 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
 endif
 
+ifeq ($(strip $(HAPTIC_ENABLE)), yes)
+    SRC += haptic_stuff.c
+endif
+
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+    SRC += pointing_stuff.c
+endif

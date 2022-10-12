@@ -1,7 +1,10 @@
 #include "sadekbaroudi.h"
-#include "users/sadekbaroudi/casemodes.h"
-#if defined(RGBLIGHT_ENABLE)
+#include "casemodes.h"
+#if defined(USERSPACE_RGBLIGHT_ENABLE)
 #include "rgb_stuff.h"
+#endif
+#ifdef HAPTIC_ENABLE
+#include "drivers/haptic/DRV2605L.h"
 #endif
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
@@ -30,7 +33,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // #ifdef RGB_MATRIX_ENABLE
 //         && process_record_user_rgb_matrix(keycode, record)
 // #endif
-#ifdef RGBLIGHT_ENABLE
+#ifdef USERSPACE_RGBLIGHT_ENABLE
         && process_record_user_rgb_light(keycode, record)
 #endif
     && true)) {
@@ -38,15 +41,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case KC_CAPSLOCK:
-            if (record->event.pressed) {
-                if (is_caps_lock_on) {
-                    is_caps_lock_on = false;
-                } else {
-                    is_caps_lock_on = true;
-                }
-            }
-            break;
         // COMMENT TO DISABLE MACROS
         case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
             if (!record->event.pressed) {
@@ -86,49 +80,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(USERSPACE_RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             if (record->event.pressed) {
                 userspace_config.rgb_layer_change ^= 1;
                 xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
-// #    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
-//                     rgblight_enable_noeeprom();
+// #    if defined(USERSPACE_RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+//                     USERSPACE_RGBLIGHT_ENABLE_noeeprom();
 // #    endif
                     layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
                 } else {
-// #    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+// #    if defined(USERSPACE_RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
 //                     rgblight_disable_noeeprom();
 // #    endif
-#    if defined(RGBLIGHT_ENABLE)
+#    if defined(USERSPACE_RGBLIGHT_ENABLE)
                     rgblight_set_hsv_and_mode(userspace_config.hue, userspace_config.sat, userspace_config.val, userspace_config.mode);
 #    endif
                     ;
                 }
             }
-#endif  // RGBLIGHT_ENABLE
+#endif  // USERSPACE_RGBLIGHT_ENABLE
             break;
         case KC_RGB_BLT:  // This enables the base layer as a static color, or allows you to override using RGB
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(USERSPACE_RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             if (record->event.pressed) {
                 userspace_config.rgb_base_layer_override ^= 1;
                 xprintf("rgblight base layer override change [EEPROM]: %u\n", userspace_config.rgb_base_layer_override);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_base_layer_override) {
-// #    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
-//                     rgblight_enable_noeeprom();
+// #    if defined(USERSPACE_RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+//                     USERSPACE_RGBLIGHT_ENABLE_noeeprom();
 // #    endif
                     layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
-// #    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+// #    if defined(USERSPACE_RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
 //                 } else {
 //                     rgblight_disable_noeeprom();
 // #    endif
                 }
             }
-#endif  // RGBLIGHT_ENABLE
+#endif  // USERSPACE_RGBLIGHT_ENABLE
             break;
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(USERSPACE_RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
         case RGB_TOG:
             // Split keyboards need to trigger on key-up for edge-case issue
 #    ifndef SPLIT_KEYBOARD
@@ -136,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#    if defined(USERSPACE_RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                 rgblight_toggle();
 #    endif
 // #    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
@@ -151,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 bool is_eeprom_updated = false;
 
                 if (userspace_config.rgb_layer_change) {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#    if defined(USERSPACE_RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     // For some reason, this breaks setting base layer colors on the draculad, need to comment this line out
                     rgblight_set_hsv_and_mode(userspace_config.hue, userspace_config.sat, userspace_config.val, userspace_config.mode);
 #    endif
@@ -169,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             if (!record->event.pressed) {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#    if defined(USERSPACE_RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                 rgb_set_user_config_from_current_values();
 #    endif
             }
@@ -196,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 enable_xcase();
             }
             #endif
-            break;            
+            break;
         case C_UNDERSCORECASE:
             #ifdef CASEMODES_ENABLE
             if (record->event.pressed) {
@@ -205,6 +199,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
             break;
         // COMMENT TO DISABLE MACROS
+        case L_GREP:
+            if (record->event.pressed) {
+                SEND_STRING("grep -rn \"");
+            } else {
+                // when keycode is released
+            }
+            break;
+        case L_FIND:
+            if (record->event.pressed) {
+                SEND_STRING("find . -name \"");
+            } else {
+                // when keycode is released
+            }
+            break;
         case L_GITCOMMIT:
             if (record->event.pressed) {
                 SEND_STRING("git commit -a -m \"\""SS_TAP(X_LEFT));
@@ -230,35 +238,89 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LSHIFT);
             }
             break;
-        case N_NEXTSEN:  // Next sentence macro.
+        case P_ANGBRKT:
             if (record->event.pressed) {
-                SEND_STRING(". ");
-                add_oneshot_mods(MOD_BIT(KC_LSHIFT));  // Set one-shot mod for shift.
-            }
-            break;
-        case S_ALT_TAB:
-            if (record->event.pressed) {
-                press_super_alt_tab(false);
+                SEND_STRING("<>"SS_TAP(X_LEFT));
             } else {
                 // when keycode is released
             }
             break;
-        // UNCOMMENT TO ENABLE YOU MACRO
-        // case T_YOU:
-        //     if (record->event.pressed) {
-        //         if((get_mods() & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) || (get_mods() & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT)) {
-        //             SEND_STRING("y");
-        //             unregister_code(KC_LSHIFT);
-        //             unregister_code(KC_RSHIFT);
-        //             SEND_STRING("ou");
-        //         } else if(is_caps_lock_on) {
-        //             register_code(KC_LSHIFT);
-        //             SEND_STRING("you");
-        //             unregister_code(KC_LSHIFT);
-        //         } else {
-        //             SEND_STRING("you");
-        //         }
-        //     }
+        case P_PAREN:
+            if (record->event.pressed) {
+                SEND_STRING("()"SS_TAP(X_LEFT));
+            } else {
+                // when keycode is released
+            }
+            break;
+        case P_CURLY:
+            if (record->event.pressed) {
+                SEND_STRING("{}"SS_TAP(X_LEFT));
+            } else {
+                // when keycode is released
+            }
+            break;
+        case P_BRKT:
+            if (record->event.pressed) {
+                SEND_STRING("[]"SS_TAP(X_LEFT));
+            } else {
+                // when keycode is released
+            }
+            break;
+        case P_ARROW:
+            if (record->event.pressed) {
+                SEND_STRING("->");
+            } else {
+                // when keycode is released
+            }
+            break;
+        case E_ROBOT:
+            if (record->event.pressed) {
+                SEND_STRING("d[o_0]b");
+            } else {
+                // when keycode is released
+            }
+            break;
+        case E_CAT:
+            if (record->event.pressed) {
+                SEND_STRING("=^..^=");
+            } else {
+                // when keycode is released
+            }
+            break;
+        case G_GOD_ON:
+            if (record->event.pressed) {
+                register_code(KC_LSHIFT);
+                SEND_STRING(SS_TAP(X_ENTER));
+                unregister_code(KC_LSHIFT);
+                SEND_STRING("GOD MODE ENGAGED"SS_TAP(X_ENTER));
+            } else {
+                // when keycode is released
+            }
+            break;
+        case G_GOD_OFF:
+            if (record->event.pressed) {
+                register_code(KC_LSHIFT);
+                SEND_STRING(SS_TAP(X_ENTER));
+                unregister_code(KC_LSHIFT);
+                SEND_STRING("GOD MODE DISENGAGED"SS_TAP(X_ENTER));
+            } else {
+                // when keycode is released
+            }
+            break;
+        case G_PULLING:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ENTER)"I am pulling, play safe"SS_TAP(X_ENTER));
+            } else {
+                // when keycode is released
+            }
+            break;
+        case G_PUSH:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ENTER)"Push the lane out"SS_TAP(X_ENTER));
+            } else {
+                // when keycode is released
+            }
+            break;
         // COMMENT TO DISABLE MACROS
     }
     return true;

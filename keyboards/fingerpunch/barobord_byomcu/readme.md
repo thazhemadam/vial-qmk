@@ -6,39 +6,19 @@ An ergonomic 30% keyboard
 
 Barobord supports vial! Build the via keymap as shown in the commands
 
-IMPORTANT: If you are using anything that is not rgbmatrix from the list below, you will need to edit keymaps/vial/vial.json and remove the line shown below:
+To build the firmware for this keyboard (after setting up your build environment):
 ```
-     "matrix": {"rows": 4, "cols": 12},
- --> "lighting": "vialrgb",
-     "layouts": {
+    make fingerpunch/barobord_byomcu:default RGBLIGHT_ENABLE=yes ENCODER_ENABLE=yes PIMORONI_TRACKBALL_ENABLE=yes
 ```
 
-To build the firmware for this keyboard (after setting up your build environment), select from one of the following, depending on what features you have on your board:
-
-    make fingerpunch/barobord_byomcu/ec11:vial
-    make fingerpunch/barobord_byomcu/evq:vial
-    make fingerpunch/barobord_byomcu/no-features:vial
-    make fingerpunch/barobord_byomcu/oled:vial
-    make fingerpunch/barobord_byomcu/oled-ec11:vial
-    make fingerpunch/barobord_byomcu/oled-evq:vial
-    make fingerpunch/barobord_byomcu/pimoroni:vial
-    make fingerpunch/barobord_byomcu/pimoroni-ec11:vial
-    make fingerpunch/barobord_byomcu/pimoroni-evq:vial
-    make fingerpunch/barobord_byomcu/readme.md:vial
-    make fingerpunch/barobord_byomcu/rgblight:vial
-    make fingerpunch/barobord_byomcu/rgblight-oled-ec11:vial
-    make fingerpunch/barobord_byomcu/rgblight-oled-evq:vial
-    make fingerpunch/barobord_byomcu/rgblight-pimoroni-ec11:vial
-    make fingerpunch/barobord_byomcu/rgblight-pimoroni-evq:vial
-    make fingerpunch/barobord_byomcu/rgbmatrix:vial
-    make fingerpunch/barobord_byomcu/rgbmatrix-oled-ec11:vial
-    make fingerpunch/barobord_byomcu/rgbmatrix-oled-evq:vial
-    make fingerpunch/barobord_byomcu/rgbmatrix-pimoroni-ec11:vial
-    make fingerpunch/barobord_byomcu/rgbmatrix-pimoroni-evq:vial
-
-Example of flashing this keyboard:
-
-    make fingerpunch/barobord_byomcu/no-features:vial:flash
+Options are:
+```
+    RGBLIGHT_ENABLE=yes
+    RGB_MATRIX_ENABLE=yes
+    OLED_ENABLE=yes
+    ENCODER_ENABLE=yes
+    PIMORONI_TRACKBALL_ENABLE=yes
+```
 
 
 Once you have completed the build, flash it onto your keyboard. At this point, make sure you have [Vial](https://get.vial.today/) installed. You should be able to edit your keymap directly from your machine!

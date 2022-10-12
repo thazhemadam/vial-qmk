@@ -56,6 +56,11 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #    define LAYOUT LAYOUT_ortho_4x12
 #endif
 
+// Since halfdash uses the name LAYOUT_halfdash instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_halfdash))
+#    define LAYOUT LAYOUT_halfdash
+#endif
+
 // Since ffkbhw uses the name LAYOUT_ffkbhw instead of LAYOUT
 #if (!defined(LAYOUT) && defined(LAYOUT_ffkbhw))
 #    define LAYOUT LAYOUT_ffkbhw
@@ -69,6 +74,51 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 // Since bgkeeb uses the name LAYOUT_bgkeeb instead of LAYOUT
 #if (!defined(LAYOUT) && defined(LAYOUT_bgkeeb))
 #    define LAYOUT LAYOUT_bgkeeb
+#endif
+
+// Since absolem uses the name LAYOUT_absolem instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_absolem))
+#    define LAYOUT LAYOUT_absolem
+#endif
+
+// Since pinkiesout uses the name LAYOUT_pinkiesout instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_pinkiesout))
+#    define LAYOUT LAYOUT_pinkiesout
+#endif
+
+// Since rockon uses the name LAYOUT_rockon instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_rockon))
+#    define LAYOUT LAYOUT_rockon
+#endif
+
+// Since rockon_bp uses the name LAYOUT_rockon_bp instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_rockon_bp))
+#    define LAYOUT LAYOUT_rockon_bp
+#endif
+
+// Since luakeeb uses the name LAYOUT_luakeeb instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_luakeeb))
+#    define LAYOUT LAYOUT_luakeeb
+#endif
+
+// Since sweeeeep uses the name LAYOUT_sweeeeep instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_sweeeeep))
+#    define LAYOUT LAYOUT_sweeeeep
+#endif
+
+// Since bigbarobord uses the name LAYOUT_bigbarobord instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_bigbarobord))
+#    define LAYOUT LAYOUT_bigbarobord
+#endif
+
+// Since arachnophobe uses the name LAYOUT_arachnophobe instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_arachnophobe))
+#    define LAYOUT LAYOUT_arachnophobe
+#endif
+
+// Since ximi uses the name LAYOUT_ximi instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_ximi))
+#    define LAYOUT LAYOUT_ximi
 #endif
 
 
@@ -97,14 +147,6 @@ NOTE: These are all the same length.  If you do a search/replace
   lengths consistent.
 */
 
-#define _________________META_NAV_1________________			KC_ESC,  KC_PGUP, KC_UP,   KC_PGDN, _______
-#define _________________META_NAV_2________________			KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END
-
-#define _________________META_NAV_L1_______________			KC_CAPS,               KC_GRV,                LCTL(LSFT(KC_TAB)),    LCTL(LGUI(KC_LEFT)),   C_CAPSWORD
-#define _________________META_NAV_R1_______________			C_UNDERSCORECASE,      LCTL(LGUI(KC_RIGHT)),  LCTL(KC_TAB),          C_ANYCASE,             KC_BSLS
-
-#define __________________WIN_NAV_1________________			_______,               _______,               LGUI(KC_UP),           _______,               _______
-#define __________________WIN_NAV_2________________			_______,               LGUI(KC_LEFT),         LGUI(KC_DOWN),         LGUI(KC_RGHT),         _______
 
 #define __ALPHA_THUMB_L1__ KC_DEL
 #define __ALPHA_THUMB_L2__ KC_ENT
@@ -140,14 +182,49 @@ NOTE: These are all the same length.  If you do a search/replace
 #define __ALPHA_ALT_THUMBS_5__                              __ALPHA_ALT_THUMB_L1__, __ALPHA_ALT_THUMB_L2__, __ALPHA_ALT_THUMB_R1__, __ALPHA_ALT_THUMB_R2__, __ALPHA_ALT_THUMB_R3__
 #define __ALPHA_ALT_THUMBS_6__                              __ALPHA_ALT_THUMBS_LEFT_3__, __ALPHA_ALT_THUMBS_RIGHT_3__
 
-#define _________________ALPHA_ALT_L1_________________                 KC_ENT,  KC_Q,    KC_W,    KC_P,    KC_B
-#define _________________ALPHA_ALT_L2_________________                 KC_A,    KC_R,    KC_S,    KC_T,    KC_G
-#define _________________ALPHA_ALT_L3_________________                 KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+#define __ALPHA_ALT_L1_K1__ KC_Q
+#define __ALPHA_ALT_L1_K2__ KC_W
+#define __ALPHA_ALT_L1_K3__ KC_F
+#define __ALPHA_ALT_L1_K4__ KC_P
+#define __ALPHA_ALT_L1_K5__ KC_B
 
-#define _________________ALPHA_ALT_R1_________________                 KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define _________________ALPHA_ALT_R2_________________                 KC_F,    KC_N,    KC_E,    KC_I,    KC_H
-#define _________________ALPHA_ALT_R3_________________                 KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define __ALPHA_ALT_R1_K1__ KC_J
+#define __ALPHA_ALT_R1_K2__ KC_L
+#define __ALPHA_ALT_R1_K3__ KC_U
+#define __ALPHA_ALT_R1_K4__ KC_Y
+#define __ALPHA_ALT_R1_K5__ KC_SCLN
 
+#define _________________ALPHA_ALT_L1_________________			__ALPHA_ALT_L1_K1__,    __ALPHA_ALT_L1_K2__,    __ALPHA_ALT_L1_K3__,    __ALPHA_ALT_L1_K4__,    __ALPHA_ALT_L1_K5__
+#define _________________ALPHA_ALT_L2_________________			KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+#define _________________ALPHA_ALT_L3_________________			KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+
+#define _________________ALPHA_ALT_R1_________________			__ALPHA_ALT_R1_K1__,    __ALPHA_ALT_R1_K2__,    __ALPHA_ALT_R1_K3__,    __ALPHA_ALT_R1_K4__,    __ALPHA_ALT_R1_K5__
+#define _________________ALPHA_ALT_R2_________________			KC_M,    KC_N,    KC_E,    KC_I,    KC_H
+#define _________________ALPHA_ALT_R3_________________			KC_K,    KC_NO,   KC_COMM, KC_DOT,  KC_SLASH
+
+/* This is the target
+#define _________________ALPHA_ALT_L1_________________			KC_ENT,  KC_Q,    KC_W,    KC_P,    KC_B
+#define _________________ALPHA_ALT_L2_________________			KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+#define _________________ALPHA_ALT_L3_________________			KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+
+#define _________________ALPHA_ALT_R1_________________			KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define _________________ALPHA_ALT_R2_________________			KC_F,    KC_N,    KC_E,    KC_I,    KC_H
+#define _________________ALPHA_ALT_R3_________________			KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+*/
+
+#define __ALPHA_L1_K1__ KC_Q
+#define __ALPHA_L1_K2__ KC_W
+#define __ALPHA_L1_K3__ KC_F
+#define __ALPHA_L1_K4__ KC_P
+#define __ALPHA_L1_K5__ KC_B
+
+#define __ALPHA_R1_K1__ KC_J
+#define __ALPHA_R1_K2__ KC_L
+#define __ALPHA_R1_K3__ KC_U
+#define __ALPHA_R1_K4__ KC_Y
+#define __ALPHA_R1_K5__ KC_SCLN
+
+// ALPHA
 #define __________________ALPHA_L1____________________			KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #define __________________ALPHA_L2____________________			KC_A,    KC_R,    KC_S,    KC_T,    KC_G
 #define __________________ALPHA_L3____________________			KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
@@ -156,48 +233,192 @@ NOTE: These are all the same length.  If you do a search/replace
 #define __________________ALPHA_R2____________________			KC_M,    KC_N,    KC_E,    KC_I,    KC_O
 #define __________________ALPHA_R3____________________			KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH
 
-#define _________________ISRT_L1________________			  KC_Y,    KC_C,    KC_L,   KC_M,     KC_K
-#define _________________ISRT_L2________________			  KC_I,    KC_S,    KC_R,   KC_T,     KC_G
-#define _________________ISRT_L3________________			  KC_Q,    KC_V,    KC_W,   KC_D,     KC_J
-
-#define _________________ISRT_R1________________			  KC_Z,    KC_F,    KC_U,    KC_COMM, KC_SCLN
-#define _________________ISRT_R2________________			  KC_P,    KC_N,    KC_E,    KC_A,    KC_O
-#define _________________ISRT_R3________________			  KC_B,    KC_H,    KC_SLSH, KC_DOT,  KC_X
-
+// BLANK FULL LINE
 #define ___________________BLANK___________________			_______, _______, _______, _______, _______
 
-#define ________________NAVIGATION_1_______________			_________________META_NAV_1________________
-#define ________________NAVIGATION_2_______________			_________________META_NAV_2________________
-#define ________________NAVIGATION_3_______________			LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), _______, LCTL(KC_V)
+// NAVIGATION
 
-#define _________________NUMPAD_1__________________			KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS
-#define _________________NUMPAD_2__________________			KC_SLSH, KC_4,    KC_5,    KC_6,    KC_PLUS
-#define _________________NUMPAD_3__________________			KC_EQL,  KC_1,    KC_2,    KC_3,    KC_0
+#define __NAV_1_K1__ KC_ESC
+#define __NAV_1_K2__ KC_PGUP
+#define __NAV_1_K3__ KC_UP
+#define __NAV_1_K4__ KC_PGDN
+#define __NAV_1_K5__ _______
 
-#define ________________SYMBOLS_L1_________________			KC_EXLM,               KC_AT,                 KC_HASH,               KC_DLR,                KC_PERC
-#define ________________SYMBOLS_L2_________________			KC_MINS,               KC_LBRC,               KC_LCBR,               KC_LPRN,               KC_LT
+#define __NAV_2_K1__ KC_HOME
+#define __NAV_2_K2__ KC_LEFT
+#define __NAV_2_K3__ KC_DOWN
+#define __NAV_2_K4__ KC_RGHT
+#define __NAV_2_K5__ KC_END
+
+#define __NAV_3_K1__ KC_ESC
+#define __NAV_3_K2__ KC_PGUP
+#define __NAV_3_K3__ KC_PGDN
+#define __NAV_3_K4__ LCTL(LGUI(KC_LEFT))
+#define __NAV_3_K5__ LCTL(LGUI(KC_RIGHT))
+
+#define ________________NAVIGATION_1_______________			__NAV_1_K1__, __NAV_1_K2__, __NAV_1_K3__, __NAV_1_K4__, __NAV_1_K5__
+#define ________________NAVIGATION_2_______________			__NAV_2_K1__, __NAV_2_K2__, __NAV_2_K3__, __NAV_2_K4__, __NAV_2_K5__
+#define ________________NAVIGATION_3_______________			__NAV_3_K1__, __NAV_3_K2__, __NAV_3_K3__, __NAV_3_K4__, __NAV_3_K5__
+
+#define __NUMPAD_1_K1__ KC_ASTR
+#define __NUMPAD_1_K2__ KC_7
+#define __NUMPAD_1_K3__ KC_8
+#define __NUMPAD_1_K4__ KC_9
+#define __NUMPAD_1_K5__ KC_MINS
+
+#define __NUMPAD_2_K1__ KC_SLSH
+#define __NUMPAD_2_K2__ KC_4
+#define __NUMPAD_2_K3__ KC_5
+#define __NUMPAD_2_K4__ KC_6
+#define __NUMPAD_2_K5__ KC_PLUS
+
+#define __NUMPAD_3_K1__ KC_EQL
+#define __NUMPAD_3_K2__ KC_1
+#define __NUMPAD_3_K3__ KC_2
+#define __NUMPAD_3_K4__ KC_3
+#define __NUMPAD_3_K5__ KC_0
+
+#define _________________NUMPAD_1__________________			__NUMPAD_1_K1__, __NUMPAD_1_K2__, __NUMPAD_1_K3__, __NUMPAD_1_K4__, __NUMPAD_1_K5__
+#define _________________NUMPAD_2__________________			__NUMPAD_2_K1__, __NUMPAD_2_K2__, __NUMPAD_2_K3__, __NUMPAD_2_K4__, __NUMPAD_2_K5__
+#define _________________NUMPAD_3__________________			__NUMPAD_3_K1__, __NUMPAD_3_K2__, __NUMPAD_3_K3__, __NUMPAD_3_K4__, __NUMPAD_3_K5__
+
+// SYMBOLS
+
+#define __SYMBOLS_L1_K1__ KC_EXLM
+#define __SYMBOLS_L1_K2__ KC_AT
+#define __SYMBOLS_L1_K3__ KC_HASH
+#define __SYMBOLS_L1_K4__ KC_DLR
+#define __SYMBOLS_L1_K5__ KC_PERC
+
+#define __SYMBOLS_L2_K1__ KC_MINS
+#define __SYMBOLS_L2_K2__ KC_LBRC
+#define __SYMBOLS_L2_K3__ KC_LCBR
+#define __SYMBOLS_L2_K4__ KC_LPRN
+#define __SYMBOLS_L2_K5__ KC_LT
+
+#define __META_NAV_L1_K1__ KC_CAPS
+#define __META_NAV_L1_K2__ KC_GRV
+#define __META_NAV_L1_K3__ LCTL(LSFT(KC_TAB))
+#define __META_NAV_L1_K4__ LCTL(LGUI(KC_LEFT))
+#define __META_NAV_L1_K5__ C_CAPSWORD
+
+#define __SYMBOLS_R1_K1__ KC_CIRC
+#define __SYMBOLS_R1_K2__ KC_AMPR
+#define __SYMBOLS_R1_K3__ KC_ASTR
+#define __SYMBOLS_R1_K4__ KC_UNDS
+#define __SYMBOLS_R1_K5__ KC_EQL
+
+#define __SYMBOLS_R2_K1__ KC_GT
+#define __SYMBOLS_R2_K2__ KC_RPRN
+#define __SYMBOLS_R2_K3__ KC_RCBR
+#define __SYMBOLS_R2_K4__ KC_RBRC
+#define __SYMBOLS_R2_K5__ KC_PLUS
+
+#define __META_NAV_L2_K1__ C_UNDERSCORECASE
+#define __META_NAV_L2_K2__ LCTL(LGUI(KC_RIGHT))
+#define __META_NAV_L2_K3__ LCTL(KC_TAB)
+#define __META_NAV_L2_K4__ C_ANYCASE
+#define __META_NAV_L2_K5__ KC_BSLS
+
+
+#define _________________META_NAV_L1_______________     __META_NAV_L1_K1__, __META_NAV_L1_K2__, __META_NAV_L1_K3__, __META_NAV_L1_K4__, __META_NAV_L1_K5__
+#define _________________META_NAV_R1_______________     __META_NAV_L2_K1__, __META_NAV_L2_K2__, __META_NAV_L2_K3__, __META_NAV_L2_K4__, __META_NAV_L2_K5__
+
+#define ________________SYMBOLS_L1_________________			__SYMBOLS_L1_K1__, __SYMBOLS_L1_K2__, __SYMBOLS_L1_K3__, __SYMBOLS_L1_K4__, __SYMBOLS_L1_K5__
+#define ________________SYMBOLS_L2_________________			__SYMBOLS_L2_K1__, __SYMBOLS_L2_K2__, __SYMBOLS_L2_K3__, __SYMBOLS_L2_K4__, __SYMBOLS_L2_K5__
 #define ________________SYMBOLS_L3_________________			_________________META_NAV_L1_______________
 
-#define ________________SYMBOLS_R1_________________			KC_CIRC,               KC_AMPR,               KC_ASTR,               KC_UNDS,               KC_EQL
-#define ________________SYMBOLS_R2_________________			KC_GT,                 KC_RPRN,               KC_RCBR,               KC_RBRC,               KC_PLUS
+#define ________________SYMBOLS_R1_________________			__SYMBOLS_R1_K1__, __SYMBOLS_R1_K2__, __SYMBOLS_R1_K3__, __SYMBOLS_R1_K4__, __SYMBOLS_R1_K5__
+#define ________________SYMBOLS_R2_________________			__SYMBOLS_R2_K1__, __SYMBOLS_R2_K2__, __SYMBOLS_R2_K3__, __SYMBOLS_R2_K4__, __SYMBOLS_R2_K5__
 #define ________________SYMBOLS_R3_________________			_________________META_NAV_R1_______________
 
-#define ________________SHIFTNAV_1_________________			_______,               LSFT(KC_PGUP),         LSFT(KC_UP),           LSFT(KC_PGDN),         _______
-#define ________________SHIFTNAV_2_________________			LSFT(KC_HOME),         LSFT(KC_LEFT),         LSFT(KC_DOWN),         LSFT(KC_RGHT),         LSFT(KC_END)
-#define ________________SHIFTNAV_3_________________			LCTL(KC_Z),            LCTL(KC_X),            LCTL(KC_C),            LCTL(KC_V),            KC_MUTE
+// SHIFT NAVIGATION LAYER
 
-#define ________________FUNCTION_1_________________			KC_MPLY,               KC_F7,                 KC_F8,                 KC_F9,                 KC_F10
-#define ________________FUNCTION_2_________________			KC_VOLU,               KC_F4,                 KC_F5,                 KC_F6,                 KC_F11
-#define ________________FUNCTION_3_________________			KC_VOLD,               KC_F1,                 KC_F2,                 KC_F3,                 KC_F12
+#define __SHIFTNAV_1_K1__ QK_BOOT
+#define __SHIFTNAV_1_K2__ LSFT(KC_PGUP)
+#define __SHIFTNAV_1_K3__ LSFT(KC_UP)
+#define __SHIFTNAV_1_K4__ LSFT(KC_PGDN)
+#define __SHIFTNAV_1_K5__ EEP_RST
 
-#define ___________________RGB_1___________________			RGB_TOG,               RGB_MODE_REVERSE,      RGB_MODE_FORWARD,      _______,               TG(_ALPHA_ALT)
-#define ___________________RGB_2___________________			KC_RGB_BLT,            RGB_HUI,               RGB_SAI,               RGB_VAI,               TG(_ALPHA)
-#define ___________________RGB_3___________________			KC_RGB_T,              RGB_HUD,               RGB_SAD,               RGB_VAD,               _______
+#define __SHIFTNAV_2_K1__ LSFT(KC_HOME)
+#define __SHIFTNAV_2_K2__ LSFT(KC_LEFT)
+#define __SHIFTNAV_2_K3__ LSFT(KC_DOWN)
+#define __SHIFTNAV_2_K4__ LSFT(KC_RGHT)
+#define __SHIFTNAV_2_K5__ LSFT(KC_END)
 
-#define __________________MOUSE_1__________________			RESET,                 KC_MS_WH_UP,           KC_MS_UP,              KC_MS_WH_DOWN,         _______
-#define __________________MOUSE_2__________________			KC_MS_WH_LEFT,         KC_MS_LEFT,            KC_MS_DOWN,            KC_MS_RIGHT,           KC_MS_WH_RIGHT
-#define __________________MOUSE_3__________________			KC_MS_ACCEL0,          KC_MS_ACCEL1,          KC_MS_ACCEL2,          _______,               _______
+#define __SHIFTNAV_3_K1__ _______
+#define __SHIFTNAV_3_K2__ LSFT(KC_PGUP)
+#define __SHIFTNAV_3_K3__ LSFT(KC_PGDN)
+#define __SHIFTNAV_3_K4__ _______
+#define __SHIFTNAV_3_K5__ _______
 
+#define ________________SHIFTNAV_1_________________			__SHIFTNAV_1_K1__, __SHIFTNAV_1_K2__, __SHIFTNAV_1_K3__, __SHIFTNAV_1_K4__, __SHIFTNAV_1_K5__
+#define ________________SHIFTNAV_2_________________			__SHIFTNAV_2_K1__, __SHIFTNAV_2_K2__, __SHIFTNAV_2_K3__, __SHIFTNAV_2_K4__, __SHIFTNAV_2_K5__
+#define ________________SHIFTNAV_3_________________			__SHIFTNAV_3_K1__, __SHIFTNAV_3_K2__, __SHIFTNAV_3_K3__, __SHIFTNAV_3_K4__, __SHIFTNAV_3_K5__
+
+#define __FUNCION_1_K1__ KC_MPLY
+#define __FUNCION_1_K2__ KC_F7
+#define __FUNCION_1_K3__ KC_F8
+#define __FUNCION_1_K4__ KC_F9
+#define __FUNCION_1_K5__ KC_F10
+
+#define __FUNCION_2_K1__ KC_VOLU
+#define __FUNCION_2_K2__ KC_F4
+#define __FUNCION_2_K3__ KC_F5
+#define __FUNCION_2_K4__ KC_F6
+#define __FUNCION_2_K5__ KC_F11
+
+#define __FUNCION_3_K1__ KC_VOLD
+#define __FUNCION_3_K2__ KC_F1
+#define __FUNCION_3_K3__ KC_F2
+#define __FUNCION_3_K4__ KC_F3
+#define __FUNCION_3_K5__ KC_F12
+
+#define ________________FUNCTION_1_________________			__FUNCION_1_K1__, __FUNCION_1_K2__, __FUNCION_1_K3__, __FUNCION_1_K4__, __FUNCION_1_K5__
+#define ________________FUNCTION_2_________________			__FUNCION_2_K1__, __FUNCION_2_K2__, __FUNCION_2_K3__, __FUNCION_2_K4__, __FUNCION_2_K5__
+#define ________________FUNCTION_3_________________			__FUNCION_3_K1__, __FUNCION_3_K2__, __FUNCION_3_K3__, __FUNCION_3_K4__, __FUNCION_3_K5__
+
+// MEDIA LAYER
+
+#define __RGB_1_K1__ RGB_TOG
+#define __RGB_1_K2__ RGB_MODE_REVERSE
+#define __RGB_1_K3__ RGB_MODE_FORWARD
+#define __RGB_1_K4__ _______
+#define __RGB_1_K5__ TG(_ALPHA_ALT)
+
+#define __RGB_2_K1__ KC_RGB_BLT
+#define __RGB_2_K2__ RGB_HUI
+#define __RGB_2_K3__ RGB_SAI
+#define __RGB_2_K4__ RGB_VAI
+#define __RGB_2_K5__ TG(_ALPHA)
+
+#define __RGB_3_K1__ KC_RGB_T
+#define __RGB_3_K2__ RGB_HUD
+#define __RGB_3_K3__ RGB_SAD
+#define __RGB_3_K4__ RGB_VAD
+#define __RGB_3_K5__ _______
+
+#define ___________________RGB_1___________________			__RGB_1_K1__, __RGB_1_K2__, __RGB_1_K3__, __RGB_1_K4__, __RGB_1_K5__
+#define ___________________RGB_2___________________			__RGB_2_K1__, __RGB_2_K2__, __RGB_2_K3__, __RGB_2_K4__, __RGB_2_K5__
+#define ___________________RGB_3___________________			__RGB_3_K1__, __RGB_3_K2__, __RGB_3_K3__, __RGB_3_K4__, __RGB_3_K5__
+
+#define __MACROS_1_K1__ RGB_SPI
+#define __MACROS_1_K2__ L_FIND
+#define __MACROS_1_K3__ L_GITCOMMIT
+#define __MACROS_1_K4__ _______
+#define __MACROS_1_K5__ E_ROBOT
+
+#define __MACROS_2_K1__ P_ANGBRKT
+#define __MACROS_2_K2__ P_PAREN
+#define __MACROS_2_K3__ P_CURLY
+#define __MACROS_2_K4__ P_BRKT
+#define __MACROS_2_K5__ P_ARROW
+
+#define __MACROS_3_K1__ RGB_SPD
+#define __MACROS_3_K2__ L_GREP
+#define __MACROS_3_K3__ _______
+#define __MACROS_3_K4__ _______
+#define __MACROS_3_K5__ E_CAT
 
 // // UNCOMMENT TO DISABLE MACROS
 // #define _________________MACROS_1__________________			___________________BLANK___________________
@@ -205,33 +426,97 @@ NOTE: These are all the same length.  If you do a search/replace
 // #define _________________MACROS_3__________________			___________________BLANK___________________
 
 // COMMENT TO DISABLE MACROS
-#define _________________MACROS_1__________________			RGB_SPI,               _______,               L_GITCOMMIT,           _______,               _______
-#define _________________MACROS_2__________________			_______,               _______,               _______,               _______,               _______
-#define _________________MACROS_3__________________			RGB_SPD,               _______,               _______,               _______,               _______
+#define _________________MACROS_1__________________			__MACROS_1_K1__, __MACROS_1_K2__, __MACROS_1_K3__, __MACROS_1_K4__, __MACROS_1_K5__
+#define _________________MACROS_2__________________			__MACROS_2_K1__, __MACROS_2_K2__, __MACROS_2_K3__, __MACROS_2_K4__, __MACROS_2_K5__
+#define _________________MACROS_3__________________			__MACROS_3_K1__, __MACROS_3_K2__, __MACROS_3_K3__, __MACROS_3_K4__, __MACROS_3_K5__
 
-// #define ______________2_THUMB_BASE_________________     LT(_NAVIGATION,KC_ENT), LT(_FUNCTION,KC_BSPC)
-// #define ______________2_THUMB_NAV__________________     _______,                KC_BSPC
-// #define ______________2_THUMB_SYM__________________     MO(_MEDIA),             KC_BSPC
-// #define ______________2_THUMB_FUNC_________________     _______,                _______
-// #define ______________2_THUMB_MEDIA________________     _______,                _______
-// #define ______________2_THUMB_MOUSE________________     KC_MS_BTN1,             KC_MS_BTN2
-// #define ______________2_THUMB_WINNAV_______________     _______,                _______
+// MOUSE LAYER
 
-// #define ______________4_THUMB_BASE_________________     LT(_NAVIGATION,KC_ENT), LT(_FUNCTION,KC_TAB),  LT(_FUNCTION,KC_BSPC), LT(_SYMBOLS,KC_SPACE)
-// #define ______________4_THUMB_NAV__________________     _______,                KC_TAB,                KC_BSPC,               MO(_MEDIA)
-// #define ______________4_THUMB_SYM__________________     MO(_MEDIA),             KC_TAB,                KC_BSPC,               _______
-// #define ______________4_THUMB_FUNC_________________     _______,                _______,               _______,               _______
-// #define ______________4_THUMB_MEDIA________________     _______,                _______,               _______,               _______
-// #define ______________4_THUMB_MOUSE________________     KC_MS_BTN1,             KC_MS_BTN3,            KC_MS_BTN3,            KC_MS_BTN2
-// #define ______________4_THUMB_WINNAV_______________     _______,                _______,               _______,               _______
+#define __MOUSE_1_K1__ _______
+#define __MOUSE_1_K2__ KC_MS_WH_UP
+#define __MOUSE_1_K3__ KC_MS_UP
+#define __MOUSE_1_K4__ KC_MS_WH_DOWN
+#define __MOUSE_1_K5__ _______
 
-// #define ______________6_THUMB_BASE_________________     KC_DEL,    ______________4_THUMB_BASE_________________, KC_QUOT
-// #define ______________6_THUMB_NAV__________________     _______,   ______________4_THUMB_NAV__________________, KC_DOT
-// #define ______________6_THUMB_SYM__________________     _______,   ______________4_THUMB_SYM__________________, _______
-// #define ______________6_THUMB_FUNC_________________     _______,   ______________4_THUMB_FUNC_________________, _______
-// #define ______________6_THUMB_MEDIA________________     _______,   ______________4_THUMB_MEDIA________________, _______
-// #define ______________6_THUMB_MOUSE________________     _______,   ______________4_THUMB_MOUSE________________, _______
-// #define ______________6_THUMB_WINNAV_______________     _______,   ______________4_THUMB_WINNAV_______________, _______
+#define __MOUSE_2_K1__ KC_MS_WH_LEFT
+#define __MOUSE_2_K2__ KC_MS_LEFT
+#define __MOUSE_2_K3__ KC_MS_DOWN
+#define __MOUSE_2_K4__ KC_MS_RIGHT
+#define __MOUSE_2_K5__ KC_MS_WH_RIGHT
+
+#define __MOUSE_3_K1__ _______
+#define __MOUSE_3_K2__ KC_MS_WH_UP
+#define __MOUSE_3_K3__ KC_MS_WH_DOWN
+#define __MOUSE_3_K4__ KC_MS_ACCEL1
+#define __MOUSE_3_K5__ KC_MS_ACCEL2
+
+#define __________________MOUSE_1__________________     __MOUSE_1_K1__, __MOUSE_1_K2__, __MOUSE_1_K3__, __MOUSE_1_K4__, __MOUSE_1_K5__
+#define __________________MOUSE_2__________________     __MOUSE_2_K1__, __MOUSE_2_K2__, __MOUSE_2_K3__, __MOUSE_2_K4__, __MOUSE_2_K5__
+#define __________________MOUSE_3__________________     __MOUSE_3_K1__, __MOUSE_3_K2__, __MOUSE_3_K3__, __MOUSE_3_K4__, __MOUSE_3_K5__
+
+#define __AMOUSE_1_K1_ _______
+#define __AMOUSE_1_K2_ KC_MS_WH_UP
+#define __AMOUSE_1_K3_ KC_MS_UP
+#define __AMOUSE_1_K4_ KC_MS_WH_DOWN
+#define __AMOUSE_1_K5_ _______
+
+#define __AMOUSE_2_K1_ KC_MS_WH_LEFT
+#define __AMOUSE_2_K2_ KC_BTN3
+#define __AMOUSE_2_K3_ KC_BTN2
+#define __AMOUSE_2_K4_ KC_BTN1
+#define __AMOUSE_2_K5_ KC_MS_WH_RIGHT
+
+#define __AMOUSE_3_K1_ EEP_RST
+#define __AMOUSE_3_K2_ KC_MS_WH_UP
+#define __AMOUSE_3_K3_ KC_MS_WH_DOWN
+#define __AMOUSE_3_K4_ KC_MS_ACCEL1
+#define __AMOUSE_3_K5_ KC_MS_ACCEL2
+
+#define _______________AUTO_MOUSE_1________________     __AMOUSE_1_K1_, __AMOUSE_1_K2_, __AMOUSE_1_K3_, __AMOUSE_1_K4_, __AMOUSE_1_K5_
+#define _______________AUTO_MOUSE_2________________     __AMOUSE_2_K1_, __AMOUSE_2_K2_, __AMOUSE_2_K3_, __AMOUSE_2_K4_, __AMOUSE_2_K5_
+#define _______________AUTO_MOUSE_3________________     __AMOUSE_3_K1_, __AMOUSE_3_K2_, __AMOUSE_3_K3_, __AMOUSE_3_K4_, __AMOUSE_3_K5_
+
+//                                                      Zoom Home           Add Line            Add Arc            Add Polygon         Add Circle
+#define ___________________KICAD_0_________________     KC_HOME,            LCTL(LSFT(KC_L)),   LCTL(LSFT(KC_A)),  LCTL(LSFT(KC_P)),   LCTL(LSFT(KC_C))
+//                                                      Drag 45 degree      Move Dialog         Flip               Pos Relative        Select Net
+#define ___________________KICAD_1_________________     KC_D,               LSFT(KC_M),         KC_F,              LSFT(KC_P),         KC_GRV
+//                                                      Create Track        End Track           Edit Property      Move                Fill Zones
+#define ___________________KICAD_2_________________     LCTL_T(KC_X),       LGUI_T(KC_END),     LALT_T(KC_E),      LSFT_T(KC_M),       KC_B
+//                                                      Undo                Redo                Rotate             Add Via             Front<->Back
+#define ___________________KICAD_3_________________     LCTL(KC_X),         LCTL(KC_Y),         KC_R,              LCTL(LSFT(KC_V)),   KC_V
+#define __KICAD_R0_L__ KC_ESC
+#define __KICAD_R1_L__ KC_TAB            // Drag free angl
+#define __KICAD_R2_L__ LCTL(KC_C)        // Copy
+#define __KICAD_R3_L__ LCTL(KC_V)        // Paste
+#define __KICAD_R0_R__ LCTL(LSFT(KC_T))  // Add Text
+#define __KICAD_R1_R__ LSFT(KC_GRV)      // Stop SelctNet
+#define __KICAD_R2_R__ LCTL(KC_B)        // Unfill Zones
+#define __KICAD_R3_R__ LCTL(LSFT(KC_M))  // Measure
+#define __KICAD_TH_L__ KC_DEL            // Delete
+#define __KICAD_TH_C__ KC_ENT            // Enter
+#define __KICAD_TH_R__ LSFT(KC_DEL)      // Delete track, note that this only deletes the current copper line up to pads or vias
+#define __KICAD_R4_1__ __KICAD_R3_R__
+#define __KICAD_R4_2__ LALT(KC_3)        // 3D Viewer
+#define __KICAD_R4_3__ KC_U              // Select track, double press for all connected... // used to be this --> LCTL(KC_E)        // Edit Footprint
+
+#define ___________________GAMES_0_________________     KC_F1,   KC_F2,   KC_C,    KC_V,    KC_G
+#define ___________________GAMES_1_________________     KC_Q,    KC_W,    KC_E,    KC_R,    KC_D
+#define ___________________GAMES_2_________________     KC_A,    KC_F,    KC_TAB,  KC_L,    KC_H
+#define ___________________GAMES_3_________________     KC_T,    KC_COMM, KC_K,    KC_SCLN, KC_DOT
+#define __GAMES_R0_L__ KC_F4
+#define __GAMES_R1_L__ KC_Z
+#define __GAMES_R2_L__ KC_P
+#define __GAMES_R3_L__ KC_LSFT
+#define __GAMES_R0_R__ KC_N
+#define __GAMES_R1_R__ KC_Y
+#define __GAMES_R2_R__ KC_F7
+#define __GAMES_R3_R__ KC_ESC
+#define __GAMES_TH_L__ KC_LALT
+#define __GAMES_TH_C__ KC_X
+#define __GAMES_TH_R__ KC_B
+#define __GAMES_R4_1__ KC_J
+#define __GAMES_R4_2__ __GAMES_R3_R__
+#define __GAMES_R4_3__ KC_LCTL
 
 
 // clang-format on

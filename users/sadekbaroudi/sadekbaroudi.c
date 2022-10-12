@@ -1,23 +1,16 @@
 #include "sadekbaroudi.h"
 
-#define USER_SUPER_ALT_TAB_TIMEOUT 800
-
 #ifdef PIMORONI_TRACKBALL_ENABLE
 #include "drivers/sensors/pimoroni_trackball.h"
 #include "pointing_device.h"
 #include "color.h"
 #endif
 
-userspace_config_t userspace_config;
-bool is_caps_lock_on;
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
+#ifdef POINTING_DEVICE_ENABLE
+#include "pointing_stuff.h"
+#endif
 
-void handle_caps_lock_change(void) {
-#if defined(RGBLIGHT_ENABLE) // We only do this because we want the layer color to change
-    layer_state_set_rgb_light(layer_state);
-#endif  // RGBLIGHT_ENABLE
-}
+userspace_config_t userspace_config;
 
 // Leader key combos - TODO move into another file?
 #if defined(LEADER_ENABLE)
@@ -27,11 +20,6 @@ void matrix_scan_leader_key(void) {
   LEADER_DICTIONARY() {
     leading = false;
     leader_end();
-
-    SEQ_ONE_KEY(KC_Q) {
-      // Anything you can do in a macro.
-      SEND_STRING("QMK is awesome.");
-    }
 
     // Time shortcuts
     SEQ_TWO_KEYS(KC_H, KC_SLSH) {
@@ -106,20 +94,6 @@ void matrix_scan_leader_key(void) {
     SEQ_THREE_KEYS(KC_H, KC_COMM, KC_DOT) {
       SEND_STRING("12:30");
     }
-
-    // 
-    SEQ_TWO_KEYS(KC_D, KC_D) {
-      SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
-    }
-    SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
-      SEND_STRING("https://start.duckduckgo.com\n");
-    }
-    SEQ_TWO_KEYS(KC_A, KC_S) {
-      register_code(KC_LGUI);
-      register_code(KC_S);
-      unregister_code(KC_S);
-      unregister_code(KC_LGUI);
-    }
   }
 }
 #endif
@@ -131,7 +105,7 @@ void keyboard_pre_init_user(void) {
 
     // hack for a weird issue where userspace_config.val gets set to 0 on keyboard restart
     userspace_config.val = 255;
-    
+
     keyboard_pre_init_keymap();
 }
 // Add reconfigurable functions here, for keymap customization
@@ -149,15 +123,17 @@ void matrix_init_user(void) {
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
-    is_caps_lock_on = false;
-    #if defined(PIMORONI_TRACKBALL_ENABLE) && !defined(RGBLIGHT_ENABLE)
-    trackball_set_rgbw(RGB_BLUE, 0x00);
+    #if defined(PIMORONI_TRACKBALL_ENABLE) && !defined(USERSPACE_RGBLIGHT_ENABLE)
+    pimoroni_trackball_set_rgbw(RGB_BLUE, 0x00);
     #endif
-#if defined(RGBLIGHT_ENABLE)
+#if defined(USERSPACE_RGBLIGHT_ENABLE)
     keyboard_post_init_rgb_light();
 #endif
 // #if defined(RGB_MATRIX_ENABLE)
 //     keyboard_post_init_rgb_matrix();
+// #endif
+// #if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+//     pointing_device_set_cpi_combined_defaults();
 // #endif
     keyboard_post_init_keymap();
 }
@@ -167,8 +143,8 @@ __attribute__((weak)) void shutdown_keymap(void) {}
 void rgb_matrix_update_pwm_buffers(void);
 
 void shutdown_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable_noeeprom();
+#ifdef USERSPACE_RGBLIGHT_ENABLE
+    USERSPACE_RGBLIGHT_ENABLE_noeeprom();
     rgblight_mode_noeeprom(1);
     rgblight_setrgb_red();
 #endif
@@ -198,17 +174,9 @@ void matrix_scan_user(void) {
         startup_user();
     }
 
-#if defined(RGBLIGHT_ENABLE)
+#if defined(USERSPACE_RGBLIGHT_ENABLE)
     matrix_scan_rgb_light();
-#endif  // RGBLIGHT_ENABLE
-
-    // We do this in matrix scan in case there are two keyboards connected and we
-    // need to make sure this keyboard is aware
-    led_t led_state = host_keyboard_led_state();
-    if (led_state.caps_lock != is_caps_lock_on) {
-        is_caps_lock_on = led_state.caps_lock;
-        handle_caps_lock_change();
-    }
+#endif  // USERSPACE_RGBLIGHT_ENABLE
 
 // #if defined(RGB_MATRIX_ENABLE)
 //     matrix_scan_rgb_matrix();
@@ -218,29 +186,7 @@ void matrix_scan_user(void) {
     matrix_scan_leader_key();
 #endif
 
-    if (is_alt_tab_active) {
-        if (timer_elapsed(alt_tab_timer) > USER_SUPER_ALT_TAB_TIMEOUT) {
-            unregister_code(KC_LALT);
-            is_alt_tab_active = false;
-        }
-    }
-
     matrix_scan_keymap();
-}
-
-void press_super_alt_tab(bool shift) {
-    if (shift) {
-        register_code(KC_LSHIFT);
-    }
-    if (!is_alt_tab_active) {
-        is_alt_tab_active = true;
-        register_code(KC_LALT);
-    }
-    alt_tab_timer = timer_read();
-    tap_code(KC_TAB);
-    if (shift) {
-        unregister_code(KC_LSHIFT);
-    }
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
@@ -248,9 +194,16 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
-#if defined(RGBLIGHT_ENABLE)
+#if defined(USERSPACE_RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
-#endif  // RGBLIGHT_ENABLE
+#endif  // USERSPACE_RGBLIGHT_ENABLE
+#if defined(HAPTIC_ENABLE)
+    state = layer_state_set_haptic(state);
+#endif  // HAPTIC_ENABLE
+#if defined(POINTING_DEVICE_ENABLE)
+// all handled in keyboards/fingerpunch/fp_pointing.c now
+//    state = layer_state_set_pointing(state);
+#endif  // HAPTIC_ENABLE
     return layer_state_set_keymap(state);
 }
 
@@ -275,7 +228,7 @@ void eeconfig_init_user(void) {
     userspace_config.raw              = 0;
     userspace_config.rgb_base_layer_override = false;
     userspace_config.rgb_layer_change = true;
-    #ifdef RGBLIGHT_ENABLE
+    #ifdef USERSPACE_RGBLIGHT_ENABLE
     userspace_config.mode = RGBLIGHT_MODE_STATIC_LIGHT;
     #endif
     userspace_config.hue = 167; // BLUE
