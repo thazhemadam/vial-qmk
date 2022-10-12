@@ -112,6 +112,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+
 #ifdef OLED_ENABLE
 #define OLED_DISPLAY_128X64
 #endif

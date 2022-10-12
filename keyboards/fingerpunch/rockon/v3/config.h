@@ -79,3 +79,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define PMW33XX_CS_DIVISOR 8 // needs to be the same as the SHIFTREG_DIVISOR above
   #define POINTING_DEVICE_INVERT_Y
 #endif
+
