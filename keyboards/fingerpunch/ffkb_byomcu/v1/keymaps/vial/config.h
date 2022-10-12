@@ -54,3 +54,6 @@
   #define DISABLE_RGB_MATRIX_SOLID_SPLASH
   #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
+                  
+// For via/vial only
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5

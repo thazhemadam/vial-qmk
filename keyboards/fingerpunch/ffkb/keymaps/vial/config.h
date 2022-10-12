@@ -54,3 +54,5 @@
   #define DISABLE_RGB_MATRIX_SOLID_SPLASH
   #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
+                               
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
