@@ -16,3 +16,4 @@ rm -rf keyboards/fingerpunch/luakeeb/
 rm -rf keyboards/fingerpunch/osprette/
 rm -rf keyboards/fingerpunch/stemcell_jumper_tester/
 rm -rf keyboards/fingerpunch/ximi/
+rm -rf keyboards/fingerpunch/personal/
