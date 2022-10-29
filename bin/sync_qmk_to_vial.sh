@@ -2,6 +2,7 @@
 
 rsync -av --exclude '*vial*' ../qmk_firmware/keyboards/fingerpunch/ keyboards/fingerpunch/
 rsync -av --exclude '*vial*' ../qmk_firmware/users/sadekbaroudi/ users/sadekbaroudi/
+rsync -av --exclude '*vial*' ../qmk_firmware/bin/fp_build.sh bin/fp_build.sh
 
 # keep this list updated as vial support is added for these boards
 rm -rf keyboards/fingerpunch/arachnophobe/
