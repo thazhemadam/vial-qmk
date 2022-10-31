@@ -2,8 +2,7 @@ name: Build QMK firmware
 on:
   push:
     branches:
-      - main
-      - master
+      - vial
       - 'develop**'
       - github-actions-build
 jobs:
