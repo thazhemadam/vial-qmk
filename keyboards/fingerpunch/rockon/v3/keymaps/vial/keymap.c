@@ -1,20 +1,11 @@
 #include QMK_KEYBOARD_H
 
-#ifdef CASEMODES_ENABLE
-#include "users/sadekbaroudi/casemodes.h"
-#endif
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _QWERTY,
     _LOWER,
     _RAISE,
     _ADJUST,
-};
-
-enum custom_keycodes {
-    NEXTSEN = USER00,
-    NEW_SAFE_RANGE
 };
 
 #define LOWER MO(_LOWER)
@@ -38,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,        _______,       _______,       _______,       _______,       _______,       _______,                                           _______,       _______,       _______,       _______,       KC_MINS,       KC_EQL,        _______,
     _______,       KC_PGUP,       KC_UP,         KC_PGDN,       _______,       _______,       _______,                                           _______,       _______,       _______,       _______,       _______,       _______,       _______,
     KC_HOME,       KC_LEFT,       KC_DOWN,       KC_RGHT,       KC_END,        _______,       _______,                                           _______,       _______,       _______,       _______,       _______,       _______,       _______,
-    _______,       _______,       _______,       _______,       _______,       _______,       _______,                                           _______,       _______,       _______,       _______,       NEXTSEN,       _______,       _______,
+    _______,       _______,       _______,       _______,       _______,       _______,       _______,                                           _______,       _______,       _______,       _______,       _______,       _______,       _______,
                    _______,       _______,       _______,       _______,       _______,       _______,    _______,      _______,     _______,    _______,       _______,       ADJUST,        _______,       _______,       _______,
                                                                                                                         _______
 ),
@@ -62,19 +53,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case NEXTSEN:
-            if (record->event.pressed) {
-                SEND_STRING(". ");
-                add_oneshot_mods(MOD_BIT(KC_LSHIFT));  // Set one-shot mod for shift.
-            }
-            break;
-        default:
-            break;
-    }
-
-    return true;
-}
 

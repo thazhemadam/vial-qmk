@@ -6,19 +6,6 @@
 #include "color.h"
 #endif
 
-#ifdef CASEMODES_ENABLE
-#include "users/sadekbaroudi/casemodes.h"
-#endif
-
-enum custom_keycodes {
-    NEXTSEN = USER00,
-    CAPSWORD,
-    HYPHENCASE,
-    ANYCASE,
-    U_S_CASE,
-    NEW_SAFE_RANGE
-};
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _QWERTY,
@@ -81,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_barobord(
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,     KC_7,       KC_8,    KC_9,    KC_0,
   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TAB,       _______,  KC_MINS,    KC_EQL,  KC_LBRC, KC_RBRC,
-  KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, CAPSWORD,     U_S_CASE, HYPHENCASE, ANYCASE, KC_BSLS, KC_QUOT,
+  KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, _______,      _______,  _______,    _______, KC_BSLS, KC_QUOT,
   _______, _______, ADJUST,  _______, _______,      _______,  _______,    _______, _______, _______,
                                       _______,      _______
 ),
@@ -155,107 +142,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        _______,           _______
 )
 };
-
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    #ifdef PIMORONI_TRACKBALL_ENABLE
-    switch(get_highest_layer(state)) {
-        case _QWERTY:
-            if (is_caps_lock_on) {
-                trackball_set_rgbw(RGB_RED, 0x00);
-            } else {
-                trackball_set_rgbw(RGB_BLUE, 0x00);
-            }
-            break;
-        case _LOWER:
-            trackball_set_rgbw(RGB_PURPLE, 0x00);
-            break;
-        case _RAISE:
-            trackball_set_rgbw(RGB_YELLOW, 0x00);
-            break;
-        case _ADJUST:
-            trackball_set_rgbw(RGB_ORANGE, 0x00);
-            break;
-        case _EXTRA:
-            trackball_set_rgbw(RGB_CYAN, 0x00);
-            break;
-        default: //  for any other layers, or the default layer
-            if (is_caps_lock_on) {
-                trackball_set_rgbw(RGB_RED, 0x00);
-            } else {
-                trackball_set_rgbw(RGB_BLUE, 0x00);
-            }
-            break;
-    }
-    #endif
-    return state;
-}
-
-void keyboard_post_init_user(void) {
-    is_caps_lock_on = false;
-    #ifdef PIMORONI_TRACKBALL_ENABLE
-    trackball_set_rgbw(RGB_BLUE, 0x00);
-    #endif
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef CASEMODES_ENABLE
-    // Process case modes
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
-    #endif
-
-    switch (keycode) {
-        case KC_CAPSLOCK:
-            if (record->event.pressed) {
-                if (is_caps_lock_on) {
-                    is_caps_lock_on = false;
-                } else {
-                    is_caps_lock_on = true;
-                }
-            }
-            break;
-        case CAPSWORD:
-#ifdef CASEMODES_ENABLE
-            if (record->event.pressed) {
-                enable_caps_word();
-            }
-#endif
-            break;
-        case HYPHENCASE:
-#ifdef CASEMODES_ENABLE
-            if (record->event.pressed) {
-                enable_xcase_with(KC_MINS);
-            }
-#endif
-            break;
-        case ANYCASE:
-#ifdef CASEMODES_ENABLE
-            if (record->event.pressed) {
-                enable_xcase();
-            }
-#endif
-            break;
-        case U_S_CASE:
-#ifdef CASEMODES_ENABLE
-            if (record->event.pressed) {
-                enable_xcase_with(KC_UNDS);
-            }
-#endif
-            break;
-        case NEXTSEN:
-            if (record->event.pressed) {
-                SEND_STRING(". ");
-                add_oneshot_mods(MOD_BIT(KC_LSHIFT));  // Set one-shot mod for shift.
-            }
-            break;
-        default:
-            break;
-    }
-
-    return true;
-}
 
 #ifdef OLED_DRIVER_ENABLE
 
