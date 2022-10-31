@@ -160,9 +160,71 @@ make_build_string_recursive() {
 		local param_name=$(cat "${build_json}" | jq -r ".[${param_number}].name")
 		make_build_string_recursive "${build_json}" "${run_build}" $next_param_number "${build_string_base} ${param_name}=yes"
 		make_build_string_recursive "${build_json}" "${run_build}" $next_param_number "${build_string_base} ${param_name}=no"
+    elif [[ "${param_type}" == "convert-to" ]]; then
+		local param_name=$(cat "${build_json}" | jq -r ".[${param_number}].name")
+        make_build_string_recursive "${build_json}" "${run_build}" $next_param_number "${build_string_base} CONVERT_TO=${param_name}"
     else
         echo "invalid type in json file: ${param_type}"
         exit
+    fi
+}
+
+rename_file_from_build_string() {
+    tokens=( $1 )
+
+    # Calculate the qmk build filename prefix to move it
+    token_file_prefix="${tokens[1]//\//_}"
+    token_file_prefix="${token_file_prefix//:/_}"
+
+    # Start the new filename, which will be appended to below
+    target_filename="${token_file_prefix}"
+
+    # check if token_i>1
+    # check if first paramter is CONVERT_TO, then grab other side of = (stemcell for example)
+    # otherwise grab first parameter (RGBLIGHT_ENABLE for example)
+    # rename file accordingly
+    token_i=0
+    for token in "${tokens[@]}"
+    do
+        if [[ $token_i -gt 1 ]]; then
+            config_param="${token%%=*}"
+            config_value="${token#*=}"
+            if [[ "${config_param}" == "CONVERT_TO" ]]; then
+                token_file_prefix+="_${config_value}"
+                target_filename+="_${config_value}"
+            else
+                # Make sure that the value is yes (it's enabled), otherwise we shouldn't include in the filename
+                if [[ "${config_value}" == "yes" ]]; then
+                    # ,, converts to lowercase
+                    target_filename+="_${config_param,,}"
+                    # remove _enable suffix as it's implied
+                    target_filename=${target_filename%"_enable"}
+                fi
+            fi
+        fi
+        token_i+=1
+    done
+
+    echo "${0}: filename token is ${token_file_prefix}"
+    echo "${0}: target filename is ${target_filename}"
+
+    hex_source_file="${token_file_prefix}.hex"
+    uf2_source_file="${token_file_prefix}.uf2"
+    hex_target_file="${target_filename}.hex"
+    uf2_target_file="${target_filename}.uf2"
+
+    if test -f "${hex_source_file}"; then
+        echo "${0}: Renaming file '${hex_source_file}' to '${hex_target_file}'"
+        mv "${hex_source_file}" "${hex_target_file}"
+    else
+        echo "${0}: Could not find hex source file ${hex_source_file} to rename."
+    fi
+
+    if test -f "${uf2_source_file}"; then
+        echo "${0}: Renaming file '${uf2_source_file}' to '${uf2_target_file}'"
+        mv "${uf2_source_file}" "${uf2_target_file}"
+    else
+        echo "${0}: Could not find uf2 source file ${uf2_source_file} to rename."
     fi
 }
 
@@ -177,6 +239,8 @@ process_build_string() {
 		echo "fp_build.sh: Running QMK Build...."
 		echo ""
 		eval "${build_string}"
+
+        rename_file_from_build_string "${build_string}"
 	fi
 }
 
