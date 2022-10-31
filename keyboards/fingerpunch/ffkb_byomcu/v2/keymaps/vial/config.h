@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 
 #pragma once
-#define VIAL_KEYBOARD_UID {0x69, 0x3C, 0xEA, 0x84, 0xB6, 0xCC, 0xB4, 0xAC}
+#define VIAL_KEYBOARD_UID {0x5F, 0xC8, 0xB9, 0x79, 0x18, 0x72, 0x56, 0xF2}
 
 #if defined(ENCODER_ENABLE) && defined(VIAL_ENCODERS_ENABLE)
 #define VIAL_ENCODER_DEFAULT { KC_VOLD, KC_VOLU, C(KC_LEFT), C(KC_RIGHT), LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), \
