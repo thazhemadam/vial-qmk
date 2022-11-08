@@ -1,4 +1,10 @@
 # fingerpunch keyboards
+
+## Building
+
+For general firmware build walkthrough and instructions, please see:  
+[FIRMWARE.md](FIRMWARE.md)
+
 ## Operating system
 
 | Setting                                 | Description                                                                                                                  | Default                          |
@@ -41,6 +47,7 @@ Note: if you are using a userspace, and you have custom keycodes, you will need 
     || defined(KEYBOARD_fingerpunch_ffkb_byomcu_v1) \
     || defined(KEYBOARD_fingerpunch_ffkb_byomcu_v2) \
     || defined(KEYBOARD_fingerpunch_ffkb_byomcu_v3) \
+    || defined(KEYBOARD_fingerpunch_fflx) \
     || defined(KEYBOARD_fingerpunch_luakeeb) \
     || defined(KEYBOARD_fingerpunch_pinkiesout) \
     || defined(KEYBOARD_fingerpunch_rockon_v1) \
@@ -48,7 +55,7 @@ Note: if you are using a userspace, and you have custom keycodes, you will need 
     || defined(KEYBOARD_fingerpunch_rockon_v3) \
     || defined(KEYBOARD_fingerpunch_rockon_bp) \
     || defined(KEYBOARD_fingerpunch_sweeeeep) \
-    || defined(KEYBOARD_fingerpunch_ximi)
+    || defined(KEYBOARD_fingerpunch_ximi) \
 #    define PLACEHOLDER_SAFE_RANGE FP_SAFE_RANGE
 #else
 #    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
@@ -189,6 +196,19 @@ If you are looking to use process_record_kb() or process_record
 | `FP_SR595_MATRIX_DEBUG`                 | (Optional) Enable debugging the 74hc595 shift register code                                        | `undefined`                                                                         |
 | `FP_SR595_MATRIX_DEBUG_RATIO`           | (Optional) Frequency for outputting matrix scan information for the shift register (1 in X scans)  | `10000`                                                                             |
 
+## STeMCell v1.0.0
+
+There aren't many of these out there, but if you are running one, you'll need to make the following changes before building:
+```
+// In platforms/chibios/converters/promicro_to_stemcell/_pin_defs.h
+// Add this to the bottom of the file
+
+// SADEK: For STeMCell v1.0.0, need to swap B1 and B2, since the hardware has it swapped
+#undef B1
+#define B1 PAL_LINE(GPIOA, 7)
+#undef B2
+#define B2 PAL_LINE(GPIOA, 5)
+```
 
 ## Appreciation
 
