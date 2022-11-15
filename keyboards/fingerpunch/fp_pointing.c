@@ -123,26 +123,29 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
             zoom_value = -zoom_value;
         }
 
-#ifdef FP_MAC_PREFERRED
-        register_code(KC_LGUI);
-#else
-        register_code(KC_LCTL);
-#endif
         // Set timer to prevent mass zoom and set threshold for zoom value, otherwise too sensitive
         if (!zooming_hold && zoom_value > 1) {
+#ifdef FP_MAC_PREFERRED
+            register_code(KC_LGUI);
+#else
+            register_code(KC_LCTL);
+#endif
             zooming_hold = true;
             defer_exec(50, fp_zoom_unset_hold, NULL);
             if (zoom_in) {
-                tap_code(KC_MS_WH_UP);
+                register_code(KC_LSFT);
+                tap_code(KC_EQUAL);
+                unregister_code(KC_LSFT);
             } else {
-                tap_code(KC_MS_WH_DOWN);
+                tap_code(KC_MINUS);
             }
-        }
 #ifdef FP_MAC_PREFERRED
-        unregister_code(KC_LGUI);
+            unregister_code(KC_LGUI);
 #else
-        unregister_code(KC_LCTL);
+            unregister_code(KC_LCTL);
 #endif
+        }
+
         mouse_report.h = 0;
         mouse_report.v = 0;
         mouse_report.x = 0;
@@ -171,15 +174,16 @@ layer_state_t fp_layer_state_set_pointing(layer_state_t state) {
             fp_zoom_layer_set(true);
 #endif
             break;
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-        case AUTO_MOUSE_DEFAULT_LAYER:
-            // Do nothing, but this needs to exist so we don't go into the "default" below and automatically
-            // disable the scroll/snipe adjustments because we used the pointing device
-            // Problem happens when POINTING_DEVICE_AUTO_MOUSE_ENABLE and FP_POINTING_SCROLLING_LAYER_ENABLE or
-            // FP_POINTING_SNIPING_LAYER_ENABLE are enabled at the samet time
-            break;
-#endif
         default:
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+            // If we hit one of the FP_POINTING_X_LAYERS, and then trigger auto mouse layer, we don't want to
+            // disable the scroll/snipe adjustments because we used the pointing device
+            // Problem happens when POINTING_DEVICE_AUTO_MOUSE_ENABLE and FP_POINTING_X_LAYER_ENABLE
+            // are enabled at the samet time
+            if (get_highest_layer(state) == AUTO_MOUSE_DEFAULT_LAYER) {
+                break;
+            }
+#endif
             if (scrolling_layer_enabled) {
 #ifdef FP_POINTING_SCROLLING_LAYER_ENABLE
                 fp_scroll_layer_set(false);
@@ -252,6 +256,13 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 bool fp_process_record_pointing(uint16_t keycode, keyrecord_t *record) {
 #   ifndef FP_DISABLE_CUSTOM_KEYCODES
     switch (keycode) {
+        case FP_SCROLL_MOMENT:
+            if (record->event.pressed) {
+                fp_scroll_keycode_set(true);
+            } else {
+                fp_scroll_keycode_set(false);
+            }
+            break;
         case FP_SCROLL_TOG:
             if (record->event.pressed) {
                 fp_scroll_keycode_toggle();
@@ -264,7 +275,14 @@ bool fp_process_record_pointing(uint16_t keycode, keyrecord_t *record) {
             break;
         case FP_SCROLL_OFF:
             if (record->event.pressed) {
-                fp_scroll_keycode_set(true);
+                fp_scroll_keycode_set(false);
+            }
+            break;
+        case FP_SNIPE_MOMENT:
+            if (record->event.pressed) {
+                fp_snipe_keycode_set(true);
+            } else {
+                fp_snipe_keycode_set(false);
             }
             break;
         case FP_SNIPE_TOG:
@@ -279,7 +297,14 @@ bool fp_process_record_pointing(uint16_t keycode, keyrecord_t *record) {
             break;
         case FP_SNIPE_OFF:
             if (record->event.pressed) {
-                fp_snipe_keycode_set(true);
+                fp_snipe_keycode_set(false);
+            }
+            break;
+        case FP_ZOOM_MOMENT:
+            if (record->event.pressed) {
+                fp_zoom_keycode_set(true);
+            } else {
+                fp_zoom_keycode_set(false);
             }
             break;
         case FP_ZOOM_TOG:
@@ -294,7 +319,7 @@ bool fp_process_record_pointing(uint16_t keycode, keyrecord_t *record) {
             break;
         case FP_ZOOM_OFF:
             if (record->event.pressed) {
-                fp_zoom_keycode_set(true);
+                fp_zoom_keycode_set(false);
             }
             break;
         default:
