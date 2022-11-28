@@ -8,6 +8,13 @@
 #define VIAL_UNLOCK_COMBO_COLS { 0, 1 }
 #endif
 
+#if defined(ENCODER_ENABLE) && defined(VIAL_ENCODERS_ENABLE)
+#define VIAL_ENCODER_DEFAULT { KC_VOLD, KC_VOLU, C(KC_LEFT), C(KC_RIGHT), \
+                               KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, \
+                               KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, \
+                               KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS }
+#endif
+
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 #define TAP_CODE_DELAY 25

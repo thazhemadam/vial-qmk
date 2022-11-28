@@ -38,9 +38,10 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-ENCODER_ENABLE = no
 OLED_ENABLE = no
 # EXTRAFLAGS     += -flto     # macros disabled, if you need the extra space
+
+ENCODER_ENABLE ?= no
 
 ifeq ($(strip $(CIRQUE_ENABLE)), yes)
    MOUSEKEY_ENABLE := yes  # not required, but enabling for mouse button keys
