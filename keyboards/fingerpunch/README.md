@@ -24,6 +24,7 @@ For general firmware build walkthrough and instructions, please see:
 
 | Key                            | Description                                                                                                                                                                                   |
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FP_ACCEL_TOG`                 | Pointing Device: Toggle pointing device acceleration (default is enabled on keyboard startup)                                                                                                 |
 | `FP_SCROLL_TOG`                | Pointing Device: Toggle scrolling mode                                                                                                                                                        |
 | `FP_SCROLL_ON`                 | Pointing Device: Turn on scrolling mode                                                                                                                                                       |
 | `FP_SCROLL_OFF`                | Pointing Device: Turn off scrolling mode                                                                                                                                                      |
@@ -78,18 +79,20 @@ enum userspace_custom_keycodes {
 
 ### General Settings
 
-| Setting                                 | Description                                                                               | Default                          |
-| --------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------- |
-| `FP_POINTING_DEFAULT_DPI`               | (Required) Sets the default DPI for your pointing device                                  | `1000`                           |
-| `FP_POINTING_SCROLLING_DPI`             | (Required) Sets the default DPI for scrolling                                             | `50`                             |
-| `FP_POINTING_SCROLLING_LAYER_ENABLE`    | (Optional) Enables scrolling mode for the layer `FP_POINTING_SCROLLING_LAYER`             | `undefined`                      |
-| `FP_POINTING_SCROLLING_LAYER`           | (Required) Defines the layer used to enable scrolling                                     | `3`                              |
-| `FP_POINTING_SNIPING_DPI`               | (Required) Sets the default DPI for scrolling                                             | `50`                             |
-| `FP_POINTING_SNIPING_LAYER_ENABLE`      | (Required) Enables scrolling mode for the layer `FP_POINTING_SNIPING_LAYER`               | `undefined`                      |
-| `FP_POINTING_SNIPING_LAYER`             | (Required) Defines the layer used to enable sniping                                       | `2`                              |
-| `FP_POINTING_ZOOMING_LAYER_ENABLE`      | (Required) Enables zooming mode for the layer `FP_POINTING_ZOOMING_LAYER`                 | `undefined`                      |
-| `FP_POINTING_ZOOMING_LAYER`             | (Required) Defines the layer used to enable zooming                                       | `1`                              |
-
+| Setting                                      | Description                                                                                                                 | Default                          |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| `FP_POINTING_EXTENDED_MOUSE_REPORT_DISABLE`  | (Optional) Disable extended mouse report, enabled by default when pointing devices is enabled, saves a tiny bit of memory   | `undefined`                      |
+| `FP_POINTING_DEFAULT_DPI`                    | (Required) Sets the default DPI for your pointing device                                                                    | `1000`                           |
+| `FP_POINTING_SCROLLING_DPI`                  | (Required) Sets the default DPI for scrolling                                                                               | `50`                             |
+| `FP_POINTING_SCROLLING_LAYER_ENABLE`         | (Optional) Enables scrolling mode for the layer `FP_POINTING_SCROLLING_LAYER`                                               | `undefined`                      |
+| `FP_POINTING_SCROLLING_LAYER`                | (Required) Defines the layer used to enable scrolling                                                                       | `3`                              |
+| `FP_POINTING_SNIPING_DPI`                    | (Required) Sets the default DPI for scrolling                                                                               | `50`                             |
+| `FP_POINTING_SNIPING_LAYER_ENABLE`           | (Required) Enables scrolling mode for the layer `FP_POINTING_SNIPING_LAYER`                                                 | `undefined`                      |
+| `FP_POINTING_SNIPING_LAYER`                  | (Required) Defines the layer used to enable sniping                                                                         | `2`                              |
+| `FP_POINTING_ZOOMING_LAYER_ENABLE`           | (Required) Enables zooming mode for the layer `FP_POINTING_ZOOMING_LAYER`                                                   | `undefined`                      |
+| `FP_POINTING_ZOOMING_LAYER`                  | (Required) Defines the layer used to enable zooming                                                                         | `1`                              |
+| `FP_POINTING_ACCELERATION_ENABLE`            | (Optional) (EXPERIMENTAL) Enable pointing device acceleration                                                               | `undefined`                      |
+     
 
 
 ### Combined Pointing Devices
@@ -209,6 +212,48 @@ Note that the ctrl-X haptic feedback responses will use control as the modifier,
 | `FP_HAPTIC_MOUSE_BUTTONS`               | (Optional) Enable haptic feedback response for Mouse 1, 2, and 3                | `undefined`                     |
 | `FP_HAPTIC_CUT_COPY_PASTE`              | (Optional) Enable haptic feedback response for ctrl-x, ctrl-c, ctrl-v           | `undefined`                     |
 | `FP_HAPTIC_SAVE`                        | (Optional) Enable haptic feedback response for ctrl-s                           | `undefined`                     |
+
+### get_haptic_enabled_key override
+
+When using a fingerpunch board, the get_haptic_enabled_key is completely overridden such that all haptic is disabled for all keys. This is because the default implementation allows you to disable certain keys, but leaves you with a majority of keypresses generating haptic feedback. This means that you cannot use the QMK config options:
+* NO_HAPTIC_MOD
+* NO_HAPTIC_ALPHA
+* NO_HAPTIC_PUNCTUATION
+* etc...
+
+See https://github.com/qmk/qmk_firmware/blob/master/docs/feature_haptic_feedback.md#haptic-key-exclusion for details
+
+If you'd like to override this, you'll need to create a function as follows:
+`__attribute__((weak)) bool get_haptic_enabled_key_user(uint16_t keycode, keyrecord_t *record)`
+
+In this function, define the key combinations you want to enable, similar to the following example:
+```c
+__attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_ENTER:
+            return true;
+            break;
+        case KC_ESCAPE:
+            return true;
+            break;
+        default:
+            break;
+    }
+    return false;
+}
+```
+
+## Audio
+
+Enable special audio features. Please see https://github.com/qmk/qmk_firmware/blob/master/docs/feature_audio.md for general audio features that you can enable and use.
+
+Note that the ctrl-X audio responses will use control as the modifier, so it won't work on a Mac by default. However, if are primarily using a Mac, enable the `FP_MAC_PREFERRED` in your config.h
+
+| Setting                                 | Description                                                                     | Default                         |
+| --------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------- |
+| `FP_AUDIO_MOUSE_BUTTONS`               | (Optional) Enable audio response for Mouse 1, 2, and 3                           | `undefined`                     |
+| `FP_AUDIO_CUT_COPY_PASTE`              | (Optional) Enable audio response for ctrl-x, ctrl-c, ctrl-v                      | `undefined`                     |
+| `FP_AUDIO_SAVE`                        | (Optional) Enable audio response for ctrl-s                                      | `undefined`                     |
 
 
 ## Keymap

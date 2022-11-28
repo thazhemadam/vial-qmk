@@ -23,7 +23,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-MOUSEKEY_ENABLE = no
+MOUSEKEY_ENABLE = yes
 
 # Either do RGBLIGHT_ENABLE or RGB_MATRIX_ENABLE and RGB_MATRIX_DRIVER
 RGBLIGHT_ENABLE = no
@@ -36,31 +36,22 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 ENCODER_ENABLE = no
-OLED_ENABLE = no            # this can be yes or no depending on if you have an OLED
-# EXTRAFLAGS     += -flto     # macros disabled, as a lot of barobord features require more space, can move this line into all the individual rules.mk, only where needed
-                            # for instance, if you build "no_features", it's very unlikely you'll need to disable macros
+# EXTRAFLAGS     += -flto     # macros disabled, if you need the extra space
+MOUSEKEY_ENABLE = no
 
+SRC += keyboards/fingerpunch/fp_matrix_74hc595_spi.c
+QUANTUM_LIB_SRC += spi_master.c
+CUSTOM_MATRIX = lite
 
-CASEMODES_ENABLE = yes
+AUDIO_ENABLE ?= no
+AUDIO_DRIVER = pwm_software
 
-ifeq ($(strip $(CASEMODES_ENABLE)), yes)
-    SRC += users/sadekbaroudi/casemodes.c
+HAPTIC_ENABLE ?= no
+HAPTIC_DRIVER = DRV2605L
+
+ifeq ($(strip $(CIRQUE_ENABLE)), yes)
+   MOUSEKEY_ENABLE := yes  # not required, but enabling for mouse button keys
+   POINTING_DEVICE_ENABLE := yes
+   POINTING_DEVICE_DRIVER := cirque_pinnacle_i2c
+   OPT_DEFS += -DCIRQUE_ENABLE
 endif
-
-PIMORONI_TRACKBALL_ENABLE = no
-
-ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
-    POINTING_DEVICE_ENABLE := yes
-    POINTING_DEVICE_DRIVER := pimoroni_trackball
-    OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
-endif
-
-DEFERRED_EXEC_ENABLE = yes
-SRC +=  keyboards/fingerpunch/fp.c \
-		keyboards/fingerpunch/fp_haptic.c \
-		keyboards/fingerpunch/fp_audio.c \
-        keyboards/fingerpunch/fp_keyhandler.c \
-        keyboards/fingerpunch/fp_pointing.c \
-		keyboards/fingerpunch/fp_rgb_common.c \
-        keyboards/fingerpunch/fp_rgblight.c \
-        keyboards/fingerpunch/fp_rgb_matrix.c

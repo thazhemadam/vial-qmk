@@ -15,29 +15,8 @@
  */
 
 #pragma once
-#include "quantum.h"
 #include QMK_KEYBOARD_H
+#include "keyboards/fingerpunch/fp.h"
 
-#ifndef FP_DISABLE_CUSTOM_KEYCODES
-enum fp_keycodes {
-#   ifdef VIA_ENABLE
-    FP_SCROLL_TOG = USER00,
-#   else
-    FP_SCROLL_TOG = SAFE_RANGE,
-#   endif // VIA_ENABLE
-    FP_ACCEL_TOG,
-    FP_SCROLL_ON,
-    FP_SCROLL_OFF,
-    FP_SCROLL_MOMENT,
-    FP_SNIPE_TOG,
-    FP_SNIPE_ON,
-    FP_SNIPE_OFF,
-    FP_SNIPE_MOMENT,
-    FP_ZOOM_TOG,
-    FP_ZOOM_ON,
-    FP_ZOOM_OFF,
-    FP_ZOOM_MOMENT,
-    FP_SUPER_TAB,
-    FP_SAFE_RANGE
-};
-#endif // FP_DISABLE_CUSTOM_KEYCODES
+layer_state_t fp_layer_state_set_audio(layer_state_t state);
+bool fp_process_record_audio(uint16_t keycode, keyrecord_t *record);
