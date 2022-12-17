@@ -19,6 +19,21 @@ LTO_ENABLE       = no
 SPACE_CADET_ENABLE    = no
 GRAVE_ESC_ENABLE      = no
 
+RGB_MATRIX_REACTIVE_LAYERS := no
+ifeq ($(strip $(RGB_MATRIX_REACTIVE_LAYERS)), yes)
+    OPT_DEFS += -DRGB_MATRIX_REACTIVE_LAYERS
+endif
+
+RGBLIGHT_SNAKE_LAYERS := no
+ifeq ($(strip $(RGBLIGHT_SNAKE_LAYERS)), yes)
+    OPT_DEFS += -DRGBLIGHT_SNAKE_LAYERS
+endif
+
+RGB_LED_RING := no
+ifeq ($(strip $(RGB_LED_RING)), yes)
+    OPT_DEFS += -DRGB_LED_RING
+endif
+
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
         SRC += secrets.c
@@ -32,11 +47,6 @@ ifeq ($(strip $(USERSPACE_RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c
     OPT_DEFS += -DUSERSPACE_RGBLIGHT_ENABLE
 endif
-
-# RGB_MATRIX_ENABLE ?= no
-# ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
-#     SRC += rgb_matrix_stuff.c
-# endif
 
 ifdef CONSOLE_ENABLE
     ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
