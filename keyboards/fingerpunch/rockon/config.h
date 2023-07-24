@@ -16,14 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEFE
-#define PRODUCT_ID      0x1200
-//#define DEVICE_VER      0x0001 // Now defined in the vX/config.h
-#define MANUFACTURER    sadekbaroudi
-#define PRODUCT         sadekbaroudi rockon
+#include "keyboards/fingerpunch/src/config.h"
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -31,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
 #ifdef RGBLIGHT_ENABLE
   #define RGBLED_NUM 66
   #define RGBLIGHT_HUE_STEP 16
@@ -51,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL 66
+  #define RGB_MATRIX_LED_COUNT 66
   #define RGB_MATRIX_CENTER {100, 32}
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150  /* The maximum brightness level for RGB_MATRIX */
   #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set

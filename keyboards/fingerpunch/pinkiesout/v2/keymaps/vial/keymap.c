@@ -9,7 +9,7 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    NEXTSEN = USER00,
+    NEXTSEN = QK_KB,
     LOWER,
     RAISE,
     ADJUST,
@@ -95,7 +95,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case NEXTSEN:
             if (record->event.pressed) {
                 SEND_STRING(". ");
-                add_oneshot_mods(MOD_BIT(KC_LSHIFT));  // Set one-shot mod for shift.
+                add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
             }
             break;
         default:

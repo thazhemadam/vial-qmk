@@ -16,18 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-// #define DEVICE_VER      0x0001  // now defined in vx/config.h
-#define VENDOR_ID       0xFEFE
-#define PRODUCT_ID      0xFF78
-#define MANUFACTURER    sadekbaroudi
-#define PRODUCT         sadekbaroudi fflx
-
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0001
+#include "keyboards/fingerpunch/src/config.h"
 
 /* key matrix size */
 /* Rows are doubled up */
@@ -46,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define RGB_DI_PIN D3 // 41
+#define WS2812_DI_PIN D3 // 41
 #ifdef RGBLIGHT_ENABLE
   // Use twinkle as the default rgb mode for the layers
   #define DEFAULT_RGB_LAYER_MODE RGBLIGHT_MODE_TWINKLE+2

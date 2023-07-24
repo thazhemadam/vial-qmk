@@ -16,14 +16,7 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0001
-#define VENDOR_ID       0xFEFE
-#define PRODUCT_ID      0x5111
-#define MANUFACTURER    sadekbaroudi
-#define PRODUCT         sadekbaroudi sweeeeep
+#include "keyboards/fingerpunch/src/config.h"
 
 /*
  * Keyboard Matrix Assignments
@@ -52,7 +45,7 @@
 }
 */
 
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
 #ifdef RGBLIGHT_ENABLE
   #define RGBLED_NUM 36
   #define RGBLED_SPLIT {18, 18}
@@ -96,7 +89,7 @@
 #define ENCODERS_PAD_B_RIGHT {D0}
 #endif
 
-#define EE_HANDS
+#define MASTER_LEFT
 
 /* Backwards compatibility with existing out-of-tree keymaps */
 #define LAYOUT_sweeeeep LAYOUT_split_3x5_3

@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEVICE_VER      0x0003
-
-
 /* key matrix size */
 /* Rows are doubled up */
 #define MATRIX_ROWS 9
@@ -31,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SHIFTREG_DIVISOR 8 // needs to be the same as the PMW33XX_CS_DIVISOR below
 #define MATRIX_ROW_PINS_SR { D4, C6, D7, E6, B4, F4, F5, F6, F7 }
 
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
 #ifdef RGBLIGHT_ENABLE
   #ifdef RGBLED_NUM
     #undef RGBLED_NUM
@@ -40,10 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-  #ifdef DRIVER_LED_TOTAL
-    #undef DRIVER_LED_TOTAL
+  #ifdef RGB_MATRIX_LED_COUNT
+    #undef RGB_MATRIX_LED_COUNT
   #endif
-  #define DRIVER_LED_TOTAL 69
+  #define RGB_MATRIX_LED_COUNT 69
 #endif
 
 // SPI config for shift register (and trackball if enabled)
@@ -114,9 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef FP_TRACKBALL_ENABLE
   // Trackball config
-  #define FP_POINTING_DEFAULT_DPI 800
   #define PMW33XX_CS_PIN B5
-  #define PMW33XX_CPI FP_POINTING_DEFAULT_DPI
   #define PMW33XX_CS_DIVISOR 8 // needs to be the same as the SHIFTREG_DIVISOR above
   #define POINTING_DEVICE_INVERT_Y
 #endif
