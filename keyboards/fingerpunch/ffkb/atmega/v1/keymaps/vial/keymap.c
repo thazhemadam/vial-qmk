@@ -14,7 +14,7 @@ enum layer_names {
 #define ADJUST MO(_ADJUST)
 
 #if defined(ENCODER_MAP_ENABLE)
-#if defined(FP_EC11_UNDER_PALMS) && defined(FP_EC11_CENTER) && !defined(OLED_ENABLE) && !defined(PIMORONI_TRACKBALL_ENABLE)
+#if (defined(FP_EC11_UNDER_PALMS) || defined(FP_EVQ_UNDER_PALMS)) && defined(FP_EC11_CENTER) && !defined(OLED_ENABLE) && !defined(PIMORONI_TRACKBALL_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),    ENCODER_CCW_CW(KC_VOLD, KC_VOLU),   ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),    ENCODER_CCW_CW(RGB_SAD, RGB_SAI),   ENCODER_CCW_CW(RGB_HUD, RGB_HUI)  },
@@ -24,7 +24,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 // under palms enabled, and not the center... or the center is also enabled, but so is oled or pimoroni (not valid, so we disable the center anyway)
-#if defined(FP_EC11_UNDER_PALMS) && (!defined(FP_EC11_CENTER) || defined(OLED_ENABLE) || defined(PIMORONI_TRACKBALL_ENABLE))
+#if (defined(FP_EC11_UNDER_PALMS) || defined(FP_EVQ_UNDER_PALMS)) && (!defined(FP_EC11_CENTER) || defined(OLED_ENABLE) || defined(PIMORONI_TRACKBALL_ENABLE))
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),    ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),    ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
@@ -33,7 +33,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_EXTRA] =  { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),   ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
 };
 #endif
-#if !defined(FP_EC11_UNDER_PALMS) && defined(FP_EC11_CENTER)
+#if !defined(FP_EC11_UNDER_PALMS) && !defined(FP_EVQ_UNDER_PALMS) && defined(FP_EC11_CENTER)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)  },
