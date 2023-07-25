@@ -18,6 +18,7 @@ rm -rf keyboards/fingerpunch/halfdash/
 rm -rf keyboards/fingerpunch/handwired/
 rm -rf keyboards/fingerpunch/luakeeb/
 rm -rf keyboards/fingerpunch/osprette/
+rm -rf keyboards/fingerpunch/pinkiesout/v2_ext/
 rm -rf keyboards/fingerpunch/stemcell_jumper_tester/
 rm -rf keyboards/fingerpunch/personal/
 rm -rf keyboards/fingerpunch/tenbit/
