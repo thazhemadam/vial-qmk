@@ -11,7 +11,6 @@ rm -rf keyboards/fingerpunch/bigbarobord/
 rm -rf keyboards/fingerpunch/euclid36/
 rm -rf keyboards/fingerpunch/euclid36proto/
 rm -rf keyboards/fingerpunch/ffkb/byomcu/v3/kle-via.json
-rm -rf keyboards/fingerpunch/ffkb/lite/
 rm -rf keyboards/fingerpunch/ffkb/rp/
 rm -rf keyboards/fingerpunch/fpm101/
 rm -rf keyboards/fingerpunch/halfdash/
