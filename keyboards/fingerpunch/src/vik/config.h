@@ -20,7 +20,7 @@
  * VIK_I2C_SCL_PIN
  * VIK_GPIO_1
  * VIK_GPIO_2
- * VIK_WS2812_DI_PIN
+ * VIK_RGB_DI_PIN
  * 
  * Options:
  * VIK_RGB_ONLY
@@ -58,11 +58,11 @@
 
 // This can be removed after upgrading QMK to the latest version
 #ifndef RGB_DI_PIN
-    #define RGB_DI_PIN VIK_WS2812_DI_PIN
+    #define RGB_DI_PIN VIK_RGB_DI_PIN
 #endif
 
-#ifndef WS2812_DI_PIN
-    #define WS2812_DI_PIN VIK_WS2812_DI_PIN
+#ifndef RGB_DI_PIN
+    #define RGB_DI_PIN VIK_RGB_DI_PIN
 #endif
 
 #ifdef VIK_HAPTIC

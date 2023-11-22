@@ -48,7 +48,7 @@ Example from `keyboards/fingerpunch/svlinky/config.h`
 #define VIK_I2C_SCL_PIN   GP11
 #define VIK_GPIO_1        GP18
 #define VIK_GPIO_2        GP24
-#define VIK_WS2812_DI_PIN GP16
+#define VIK_RGB_DI_PIN GP16
 ```
 
 ### Audio startup sound

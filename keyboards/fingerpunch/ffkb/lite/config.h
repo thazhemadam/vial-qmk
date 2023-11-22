@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VIK_I2C_SCL_PIN   GP11
 #define VIK_GPIO_1        GP18
 #define VIK_GPIO_2        GP24
-#define VIK_WS2812_DI_PIN GP16
+#define VIK_RGB_DI_PIN GP16
 #endif
 
 #include "keyboards/fingerpunch/src/config_post.h"
