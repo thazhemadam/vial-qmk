@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "keyboards/fingerpunch/src/config.h"
+#include "keyboards/fingerpunch/src/config_pre.h"
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define WS2812_DI_PIN D3
+#define RGB_DI_PIN D3
 #ifdef RGBLIGHT_ENABLE
   #define RGBLED_NUM 66
   #define RGBLIGHT_HUE_STEP 16
