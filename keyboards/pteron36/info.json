@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Pteron36",
-    "manufacturer": "Harshit Goel",
+    "manufacturer": "42Keebs",
     "url": "",
-    "maintainer": "harshitgoel96",
+    "maintainer": "Anant Thazhemadam",
     "usb": {
         "vid": "0x4847",
         "pid": "0x5054",
