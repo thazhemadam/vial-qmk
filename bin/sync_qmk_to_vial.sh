@@ -12,7 +12,7 @@ rm -rf keyboards/fingerpunch/euclid36/
 rm -rf keyboards/fingerpunch/euclid36proto/
 rm -rf keyboards/fingerpunch/dweeeeep/
 rm -rf keyboards/fingerpunch/ffkb/byomcu/v3/kle-via.json
-rm -rf keyboards/fingerpunch/ffkb/rp/
+rm -rf keyboards/fingerpunch/ffkb/rp/v0/
 rm -rf keyboards/fingerpunch/fpm101/
 rm -rf keyboards/fingerpunch/kucheza/
 rm -rf keyboards/fingerpunch/luakeeb/
