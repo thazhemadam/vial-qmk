@@ -12,7 +12,7 @@
 
 #ifndef VIAL_INSECURE
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 0 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 1 }
+#define VIAL_UNLOCK_COMBO_COLS { 1, 2 }
 #endif
 
 // For via/vial only
