@@ -8,5 +8,5 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
    VIALRGB_ENABLE := yes
 endif
-LTO_ENABLE = yes
+LTO_ENABLE = no
 QMK_SETTINGS = no
