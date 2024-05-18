@@ -20,7 +20,7 @@ rm -rf keyboards/fingerpunch/pinkiesout/v2_ext/
 rm -rf keyboards/fingerpunch/stemcell_jumper_tester/
 rm -rf keyboards/fingerpunch/personal/
 rm -rf keyboards/fingerpunch/svlinky/
-rm -rf keyboards/fingerpunch/vulpes_majora/
+# rm -rf keyboards/fingerpunch/vulpes_majora/
 rm -rf keyboards/fingerpunch/vulpes_minora/
 rm -rf keyboards/fingerpunch/xivik/
 
