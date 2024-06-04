@@ -176,14 +176,34 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #    define LAYOUT LAYOUT_vulpes_majora
 #endif
 
+// Since LAYOUT_testamatta uses the name LAYOUT_testamatta instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_testamatta))
+#    define LAYOUT LAYOUT_testamatta
+#endif
+
 // Since LAYOUT_svlinky uses the name LAYOUT_svlinky instead of LAYOUT
 #if (!defined(LAYOUT) && defined(LAYOUT_svlinky))
 #    define LAYOUT LAYOUT_svlinky
 #endif
 
+// Since LAYOUT_xivik uses the name LAYOUT_xivik instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_xivik))
+#    define LAYOUT LAYOUT_xivik
+#endif
+
 // Since LAYOUT_baboon38 uses the name LAYOUT_baboon38 instead of LAYOUT
 #if (!defined(LAYOUT) && defined(LAYOUT_baboon38))
 #    define LAYOUT LAYOUT_baboon38
+#endif
+
+// Since LAYOUT_kucheza uses the name LAYOUT_kucheza instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_kucheza))
+#    define LAYOUT LAYOUT_kucheza
+#endif
+
+// Since LAYOUT_le_chiffre_democratique uses the name LAYOUT_le_chiffre_democratique instead of LAYOUT
+#if (!defined(LAYOUT) && defined(LAYOUT_le_chiffre_democratique))
+#    define LAYOUT LAYOUT_le_chiffre_democratique
 #endif
 
 // clang-format off

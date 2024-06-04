@@ -13,7 +13,8 @@
     || defined(KEYBOARD_fingerpunch_ffkb_byomcu_v2) \
     || defined(KEYBOARD_fingerpunch_ffkb_byomcu_v3) \
     || defined(KEYBOARD_fingerpunch_ffkb_lite_v1) \
-    || defined(KEYBOARD_fingerpunch_ffkb_rp2040_v3) \
+    || defined(KEYBOARD_fingerpunch_ffkb_rp_v0) \
+    || defined(KEYBOARD_fingerpunch_ffkb_rp_v1) \
     || defined(KEYBOARD_fingerpunch_fflx) \
     || defined(KEYBOARD_fingerpunch_fpm101) \
     || defined(KEYBOARD_fingerpunch_luakeeb) \
@@ -30,9 +31,11 @@
     || defined(KEYBOARD_fingerpunch_vulpes_majora_v1) \
     || defined(KEYBOARD_fingerpunch_ximi) \
     || defined(KEYBOARD_fingerpunch_personal_badwings) \
+    || defined(KEYBOARD_fingerpunch_personal_badwings_v2) \
     || defined(KEYBOARD_fingerpunch_personal_klor) \
     || defined(KEYBOARD_fingerpunch_personal_barghoot) \
     || defined(KEYBOARD_fingerpunch_personal_baboon38) \
+    || defined(KEYBOARD_fingerpunch_personal_testamatta) \
     || defined(KEYBOARD_fingerpunch_personal_zazu)
 #    define PLACEHOLDER_SAFE_RANGE FP_SAFE_RANGE
 #elif defined(KEYMAP_SAFE_RANGE)

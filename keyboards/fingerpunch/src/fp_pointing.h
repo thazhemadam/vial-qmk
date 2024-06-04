@@ -100,6 +100,10 @@ bool fp_process_record_pointing(uint16_t keycode, keyrecord_t *record);
 #        define FP_POINTING_SCROLLING_DPI 2
 #    endif
 
+#    ifndef FP_POINTING_SCROLLING_THRESHOLD
+#        define FP_POINTING_SCROLLING_THRESHOLD 6
+#    endif
+
 #    ifndef FP_POINTING_SCROLLING_LAYER
 #        define FP_POINTING_SCROLLING_LAYER 3
 #    endif
@@ -114,6 +118,22 @@ bool fp_process_record_pointing(uint16_t keycode, keyrecord_t *record);
 
 #    ifndef FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY
 #        define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY 3
+#    endif
+
+#    ifndef FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_X
+#        define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_X FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY
+#    endif
+
+#    ifndef FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_Y
+#        define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_Y FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY
+#    endif
+
+#    ifndef FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_H
+#        define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_H FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY
+#    endif
+
+#    ifndef FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_V
+#        define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY_V FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY
 #    endif
 
 #    ifndef FP_POINTING_ZOOMING_LAYER
