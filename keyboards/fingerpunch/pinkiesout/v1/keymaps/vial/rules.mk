@@ -6,7 +6,7 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
    VIALRGB_ENABLE := yes  # not required, but enabling for mouse button keys
 endif
 LTO_ENABLE = yes
-QMK_SETTINGS = no
+QMK_SETTINGS = yes
 TAP_DANCE_ENABLE = no
 CASEMODES_ENABLE = yes
 

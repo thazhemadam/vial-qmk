@@ -8,4 +8,4 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
    VIALRGB_ENABLE := yes  # not required, but enabling for mouse button keys
 endif
-QMK_SETTINGS = no
+QMK_SETTINGS = yes
