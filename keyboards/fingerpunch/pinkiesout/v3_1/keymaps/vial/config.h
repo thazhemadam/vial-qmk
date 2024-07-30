@@ -21,3 +21,8 @@
 
 #define TAPPING_FORCE_HOLD
 
+// Experimentally enabling scrolling layer in vial on pinkies out v3.1
+// Can potentially enable across all boards in the future
+// If I do, will need to remove the two lines below
+#define FP_POINTING_SCROLLING_LAYER_ENABLE
+#define FP_POINTING_SCROLLING_LAYER 1
